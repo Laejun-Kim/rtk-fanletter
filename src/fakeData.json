@@ -1,0 +1,47 @@
+[
+  {
+    "id": "1",
+    "username": "Baron",
+    "text": "아리 누나 너무 이뻐요",
+    "foward": "AHRI",
+    "postedTime": "2023년 11월 14일 화요일 오후 10:23",
+
+    "portrait": "/img/portrait/Baron.webp"
+  },
+  {
+    "id": "2",
+    "username": "칼날부리",
+    "text": "아칼리 춤 너무 잘춘다 ㄷㄷ",
+    "foward": "AKALI",
+    "postedTime": "2023년 11월 13일 월요일 오후 7:17",
+
+    "portrait": "/img/portrait/bladebird.webp"
+  },
+  {
+    "id": "3",
+    "username": "수풀속의 남자",
+    "text": "이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? 이블린님 탑갱 안오시나요? ",
+    "foward": "EVELYN",
+    "postedTime": "2023년 11월 15일 수요일 오후 8:31",
+
+    "portrait": "/img/portrait/garen.jpg"
+  },
+  {
+    "id": "4",
+    "username": "서폿안주면던짐",
+    "text": "아이고 우리 카이사 이쁘게 잘 컸네~",
+    "foward": "KAISA",
+    "postedTime": "2023년 11월 15일 수요일 오전 4:06",
+
+    "portrait": "/img/portrait/sona.jpg"
+  },
+  {
+    "id": "5",
+    "username": "MIKE",
+    "text": "I hope this letter finds you in good spirits. I wanted to take a moment to express my deep admiration and love for you. As a fan of League of Legends, I've been enchanted by your captivating presence and the way you gracefully navigate the battlefield.Beyond the game, your character design, from the fox ears to the nine tails, is a testament to the creativity and imagination of the League of Legends team. You are not just a champion; you are a work of art.Ahri, you've brought joy and excitement into the gaming world, and your impact goes beyond the virtual realm. Your popularity is well-deserved, and I find myself continually drawn to your lore and the stories that surround you.",
+    "foward": "AHRI",
+    "postedTime": "2023년 11월 15일 수요일 오후 5:21",
+
+    "portrait": "/img/portrait/chad.png"
+  }
+]
