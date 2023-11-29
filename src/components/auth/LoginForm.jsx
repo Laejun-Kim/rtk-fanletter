@@ -206,9 +206,7 @@ function LoginForm({ setIsSigningIn }) {
             required
           ></Input>
         </PasswordContainer>
-        <ErrorTextContainer>
-          {/* {showError && <ErrorText>{error}</ErrorText>} */}
-        </ErrorTextContainer>
+        <ErrorTextContainer></ErrorTextContainer>
       </Form>
       <ButtonContainer>
         <>
