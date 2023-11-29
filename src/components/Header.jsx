@@ -3,6 +3,7 @@ import styled from "styled-components";
 import headerAllbg2 from "assets/pic/kdaHeaderBg2.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Nav from "./UI/Nav";
 // import {
 //   setMemeber,
 //   ALL,
@@ -23,6 +24,7 @@ const StHeaderContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 const StHeaderTitle = styled.h1`
   color: white;
@@ -36,7 +38,7 @@ const StMemberSelect = styled.ul`
   gap: 20px;
   margin-top: 50px;
   display: ${(props) =>
-    props.$shouldDisplay ? "flex" : "none"}; //detail page에선 안보이게.
+    props.$shouldDisplay ? "flex" : "none"}; //home 이외에선 안보이게.
 `;
 
 const StTab = styled.li`
@@ -122,6 +124,7 @@ function Header() {
   };
   return (
     <StHeaderContainer>
+      <Nav />
       <StHeaderTitle onClick={titleClickHndlr}>K/DA Fan Letters</StHeaderTitle>
       <StMemberSelect $shouldDisplay={isAtHome}>
         {tempArr.map((item) => {
