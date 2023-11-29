@@ -3,14 +3,15 @@ import styled from "styled-components";
 import headerAllbg2 from "assets/pic/kdaHeaderBg2.jpg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setMemeber,
-  ALL,
-  AHRI,
-  AKALI,
-  EVELYN,
-  KAISA,
-} from "redux/modules/chosen-member";
+// import {
+//   setMemeber,
+//   ALL,
+//   AHRI,
+//   AKALI,
+//   EVELYN,
+//   KAISA,
+// } from "redux/modules/chosen-member";
+import { setMember } from "redux/modules/chosenMemberSlice";
 
 //styled-components
 const StHeaderContainer = styled.section`
@@ -96,28 +97,28 @@ function Header() {
     let member;
     switch (event.target.textContent) {
       case "전체보기":
-        member = ALL;
+        member = "ALL";
         break;
       case "아칼리":
-        member = AKALI;
+        member = "AKALI";
         break;
       case "아리":
-        member = AHRI;
+        member = "AHRI";
         break;
       case "이블린":
-        member = EVELYN;
+        member = "EVELYN";
         break;
       case "카이사":
-        member = KAISA;
+        member = "KAISA";
         break;
     }
-    dispatch(setMemeber(member));
+    dispatch(setMember(member));
   }
   const tempArr = ["전체보기", "아칼리", "아리", "이블린", "카이사"];
 
   const titleClickHndlr = () => {
     navigate("/");
-    dispatch(setMemeber(ALL));
+    dispatch(setMember("ALL"));
   };
   return (
     <StHeaderContainer>

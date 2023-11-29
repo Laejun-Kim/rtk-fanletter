@@ -1,7 +1,8 @@
 import React from "react";
 import ReusableButton from "./ReusableButton";
 import styled from "styled-components";
-import { resetModal } from "redux/modules/modal-control";
+// import { resetModal } from "redux/modules/modal-control";
+import { resetModal } from "redux/modules/modalControlSlice";
 import { useDispatch } from "react-redux";
 
 const StBackdrop = styled.div`

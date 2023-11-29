@@ -22,6 +22,7 @@ function Letters() {
   //redux
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const fanLetters = useSelector((state) => state.fanLetter);
+  console.log(chosenMember);
 
   //선택된 멤버에 따라 팬레터를 필터링 하는 로직
   let filteredLetter;
@@ -44,6 +45,7 @@ function Letters() {
       filteredLetter = fanLetters.filter((letter) => letter.foward === "KAISA");
       break;
   }
+  console.log(filteredLetter);
 
   return (
     <StLetters>

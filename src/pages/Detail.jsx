@@ -2,8 +2,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { setFanLetters } from "redux/modules/fanletter";
-import { activateModal, resetModal } from "redux/modules/modal-control";
+// import { setFanLetters } from "redux/modules/fanletter";
+// import { activateModal, resetModal } from "redux/modules/modal-control";
+import { setFanLetters } from "redux/modules/fanLetterSlice";
+import { activateModal, resetModal } from "redux/modules/modalControlSlice";
 import ReusableButton from "components/UI/ReusableButton";
 import ReusableModal from "components/UI/ReusableModal";
 import Wrapper from "components/UI/Wrapper";
@@ -170,13 +172,24 @@ function Detail() {
     dispatch(resetModal());
     navigate("/");
   };
+  // const onEditConfirm = () => {
+  //   let editTarget = fanLetters.filter(
+  //     (letter) => letter.id == matchingLetter.id
+  //   );
+  //   let temp = fanLetters.filter((letter) => letter.id !== matchingLetter.id);
+  //   editTarget[0].text = editRef.current.value;
+  //   dispatch(setFanLetters([...temp, editTarget[0]]));
+  //   dispatch(resetModal());
+  //   setIsEditing((prev) => !prev);
+  // };
   const onEditConfirm = () => {
-    let editTarget = fanLetters.filter(
-      (letter) => letter.id == matchingLetter.id
+    const updatedLetters = fanLetters.map((letter) =>
+      letter.id === matchingLetter.id
+        ? { ...letter, text: editRef.current.value }
+        : letter
     );
-    let temp = fanLetters.filter((letter) => letter.id !== matchingLetter.id);
-    editTarget[0].text = editRef.current.value;
-    dispatch(setFanLetters([...temp, editTarget[0]]));
+
+    dispatch(setFanLetters(updatedLetters));
     dispatch(resetModal());
     setIsEditing((prev) => !prev);
   };

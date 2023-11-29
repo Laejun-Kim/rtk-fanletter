@@ -11,7 +11,6 @@ const StHomeContainer = styled.section`
   align-items: center;
   width: 100%;
   max-width: 900px;
-
   height: 100%;
   padding: 10px;
   min-width: 700px;

@@ -6,10 +6,14 @@ import fanLetterReducer from "../modules/fanLetterSlice";
 
 const store = configureStore({
   reducer: {
-    member: memberReducer,
-    modal: modalReducer,
+    chosenMember: memberReducer,
+    modalControl: modalReducer,
     fanLetter: fanLetterReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

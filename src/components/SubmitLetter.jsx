@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import uuid from "react-uuid";
 import { useDispatch, useSelector } from "react-redux";
-import { setFanLetters } from "redux/modules/fanletter";
+// import { setFanLetters } from "redux/modules/fanletter";
+import { setFanLetters } from "redux/modules/fanLetterSlice";
 import ReusableButton from "./UI/ReusableButton";
 import ReusableModal from "./UI/ReusableModal";
-import { activateModal } from "redux/modules/modal-control";
+// import { activateModal } from "redux/modules/modal-control";
+import { activateModal } from "redux/modules/modalControlSlice";
 
 //styled-components
 const StForm = styled.form`
@@ -45,7 +47,6 @@ function SubmitLetter() {
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const modalControl = useSelector((state) => state.modalControl);
   const dispatch = useDispatch();
-
   //local states
   const [userName, setUserName] = useState("");
   const [letterContent, setLetterContent] = useState("");
