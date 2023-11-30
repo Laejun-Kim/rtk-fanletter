@@ -14,9 +14,10 @@ function SubmitLetter() {
   const fanLetters = useSelector((state) => state.fanLetter);
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const modalControl = useSelector((state) => state.modalControl);
+  const { nickname } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
   //local states
-  const [userName, setUserName] = useState("");
   const [letterContent, setLetterContent] = useState("");
   const [selmem, setSelmem] = useState();
 
@@ -41,7 +42,7 @@ function SubmitLetter() {
     //신규 팬레터 생성
     let newLetter = {
       id: uuid(),
-      username: userName,
+      username: nickname,
       text: letterContent,
       foward: selmem,
       postedTime: formattedDate,
@@ -53,7 +54,6 @@ function SubmitLetter() {
 
   //form 입력값을 초기화
   useEffect(() => {
-    setUserName("");
     setLetterContent("");
   }, [chosenMember, fanLetters]);
 
@@ -73,18 +73,7 @@ function SubmitLetter() {
         />
       )}
       <StForm onSubmit={submitHandler}>
-        <div>
-          <label htmlFor="username">닉네임 : </label>
-          <input
-            type="text"
-            id="username"
-            placeholder="당신의 이름을 적어주세요"
-            autoComplete="off"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value.trimStart())}
-            required
-          />
-        </div>
+        <div>닉네임 : {nickname}</div>
         <StDivForLetterContent>
           <label htmlFor="letterContent">메시지 : </label>
           <StTextarea
