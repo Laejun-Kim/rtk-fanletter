@@ -2,6 +2,28 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
+function EachLetter({ letter }) {
+  const navigate = useNavigate();
+  const letterClickHndlr = () => {
+    navigate(`/detail/${letter.id}`);
+  };
+  return (
+    <StLetterDiv onClick={letterClickHndlr}>
+      <img src={letter.avatar} alt="" />
+      <div>
+        <p>By. {letter.nickname}</p>
+        <br />
+        <StSpanforTime>{letter.createdAt}</StSpanforTime>
+        <br />
+        <br />
+        <p>To. {letter.writedTo}</p>
+        <br />
+        <StP>{letter.content}</StP>
+      </div>
+    </StLetterDiv>
+  );
+}
+
 //styled-components
 const StLetterDiv = styled.div`
   display: flex;
@@ -45,27 +67,5 @@ const StP = styled.p`
   width: 80%;
   padding-bottom: 5px;
 `;
-
-function EachLetter({ letter }) {
-  const navigate = useNavigate();
-  const letterClickHndlr = () => {
-    navigate(`/detail/${letter.id}`);
-  };
-  return (
-    <StLetterDiv onClick={letterClickHndlr}>
-      <img src={letter.portrait} alt="" />
-      <div>
-        <p>By. {letter.username}</p>
-        <br />
-        <StSpanforTime>{letter.postedTime}</StSpanforTime>
-        <br />
-        <br />
-        <p>To. {letter.foward}</p>
-        <br />
-        <StP>{letter.text}</StP>
-      </div>
-    </StLetterDiv>
-  );
-}
 
 export default EachLetter;

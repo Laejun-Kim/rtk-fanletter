@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import EachLetter from "./EachLetter";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceSadTear } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
+import { setFanLetters } from "redux/modules/fanLetterSlice";
 
 const StLetters = styled.div`
   display: flex;
@@ -19,12 +21,27 @@ const StLetters = styled.div`
 `;
 
 function Letters() {
+  const dispatch = useDispatch();
   //redux
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const fanLetters = useSelector((state) => state.fanLetter);
   console.log(chosenMember);
   const authstate = useSelector((state) => state.auth);
   console.log("현재 로그인한 사람 정보", authstate);
+
+  const fetchLetters = async () => {
+    try {
+      const { data } = await axios.get(
+        "http://localhost:5000/letters?_sort=createdAt&_order=desc"
+      );
+      console.log("json 서버에서 받아온거", data);
+      dispatch(setFanLetters(data));
+    } catch {}
+  };
+
+  useEffect(() => {
+    fetchLetters();
+  }, []);
 
   //선택된 멤버에 따라 팬레터를 필터링 하는 로직
   let filteredLetter;
@@ -33,21 +50,27 @@ function Letters() {
       filteredLetter = fanLetters;
       break;
     case "AKALI":
-      filteredLetter = fanLetters.filter((letter) => letter.foward === "AKALI");
+      filteredLetter = fanLetters.filter(
+        (letter) => letter.writedTo === "AKALI"
+      );
       break;
     case "AHRI":
-      filteredLetter = fanLetters.filter((letter) => letter.foward === "AHRI");
+      filteredLetter = fanLetters.filter(
+        (letter) => letter.writedTo === "AHRI"
+      );
       break;
     case "EVELYN":
       filteredLetter = fanLetters.filter(
-        (letter) => letter.foward === "EVELYN"
+        (letter) => letter.writedTo === "EVELYN"
       );
       break;
     case "KAISA":
-      filteredLetter = fanLetters.filter((letter) => letter.foward === "KAISA");
+      filteredLetter = fanLetters.filter(
+        (letter) => letter.writedTo === "KAISA"
+      );
       break;
   }
-  console.log(filteredLetter);
+  console.log("필터링 된 letters", filteredLetter);
 
   return (
     <StLetters>

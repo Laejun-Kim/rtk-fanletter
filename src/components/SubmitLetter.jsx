@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import uuid from "react-uuid";
+// import uuid from "react-uuid";
+import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
 // import { setFanLetters } from "redux/modules/fanletter";
 import { setFanLetters } from "redux/modules/fanLetterSlice";
@@ -8,18 +9,25 @@ import ReusableButton from "./UI/ReusableButton";
 import ReusableModal from "./UI/ReusableModal";
 // import { activateModal } from "redux/modules/modal-control";
 import { activateModal } from "redux/modules/modalControlSlice";
+import axios from "axios";
 
 function SubmitLetter() {
   //redux
   const fanLetters = useSelector((state) => state.fanLetter);
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const modalControl = useSelector((state) => state.modalControl);
-  const { nickname } = useSelector((state) => state.auth);
+  const { nickname, avatar, userId } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
   //local states
   const [letterContent, setLetterContent] = useState("");
   const [selmem, setSelmem] = useState();
+
+  const postNewLetter = async (newLetter) => {
+    try {
+      await axios.post("http://localhost:5000/letters", newLetter);
+    } catch {}
+  };
 
   const memberSelectHndlr = (e) => {
     setSelmem(e.target.value);
@@ -41,15 +49,16 @@ function SubmitLetter() {
     }).format(new Date());
     //신규 팬레터 생성
     let newLetter = {
-      id: uuid(),
-      username: nickname,
-      text: letterContent,
-      foward: selmem,
-      postedTime: formattedDate,
-      portrait:
-        "https://global.discourse-cdn.com/turtlehead/optimized/2X/c/c830d1dee245de3c851f0f88b6c57c83c69f3ace_2_250x250.png",
+      id: nanoid(),
+      nickname: nickname,
+      content: letterContent,
+      writedTo: selmem,
+      createdAt: formattedDate,
+      avatar: avatar,
+      userId: userId,
     };
-    dispatch(setFanLetters([...fanLetters, newLetter]));
+    postNewLetter(newLetter);
+    dispatch(setFanLetters([newLetter, ...fanLetters]));
   };
 
   //form 입력값을 초기화
