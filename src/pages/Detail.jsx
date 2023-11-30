@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 // import { setFanLetters } from "redux/modules/fanletter";
 // import { activateModal, resetModal } from "redux/modules/modal-control";
-import { setFanLetters } from "redux/modules/fanLetterSlice";
+// import { setFanLetters } from "redux/modules/fanLetterSlice";
 import { activateModal, resetModal } from "redux/modules/modalControlSlice";
 import ReusableButton from "components/UI/ReusableButton";
 import ReusableModal from "components/UI/ReusableModal";
@@ -20,6 +20,7 @@ function Detail() {
   //redux
   const fanLetters = useSelector((state) => state.fanLetter);
   const modalControl = useSelector((state) => state.modalControl);
+  const { userId } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const params = useParams();
@@ -41,6 +42,9 @@ function Detail() {
       })
     );
   };
+
+  const isAuthor = matchingLetter.userId === userId;
+  console.log("글쓴이 맞음?", isAuthor);
 
   const editBtnHndlr = () => {
     setIsEditing((prev) => !prev);
@@ -99,18 +103,11 @@ function Detail() {
   };
 
   const onEditConfirm = async () => {
-    // const updatedLetters = fanLetters.map((letter) =>
-    //   letter.id === matchingLetter.id
-    //     ? { ...letter, text: editRef.current.value }
-    //     : letter
-    // );
     await axios.patch(`http://localhost:5000/letters/${matchingLetter.id}`, {
       ...matchingLetter,
       content: editRef.current.value,
     });
-    // dispatch(setFanLetters(updatedLetters));
     dispatch(resetModal());
-    // setIsEditing((prev) => !prev);
     navigate("/");
   };
 
@@ -145,7 +142,7 @@ function Detail() {
               ref={editRef}
             />
           )}
-          <StBtnDiv>
+          <StBtnDiv $shouldDisplay={isAuthor}>
             {!isEditing && (
               <ReusableButton onClick={editBtnHndlr}>수정</ReusableButton>
             )}
@@ -214,7 +211,8 @@ const StSenderDiv = styled.div`
   }
 `;
 const StBtnDiv = styled.div`
-  display: flex;
+  display: ${(props) =>
+    props.$shouldDisplay ? "flex" : "none"}; //작성자가 아니면 안보이게
   justify-content: space-around;
   width: 100%;
   margin-top: 50px;

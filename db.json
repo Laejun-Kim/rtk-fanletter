@@ -46,13 +46,22 @@
       "userId": "temp5"
     },
     {
-      "id": "WYqkuSIab4NmBNiTjTMUk",
+      "id": "SjLZtEfThhu6Y2GLwwhEL",
       "nickname": "ljkim",
-      "content": "이거 새로고침 해도 남나? \n\n와 이게 남네 ㅋㅋㅋㅋㅋㅋㅋ",
-      "writedTo": "ALL",
-      "createdAt": "2023년 11월 30일 목요일 오후 8:25",
+      "content": "sdfgdfgxcv ssdfdqwqweqweqwe",
+      "writedTo": "AHRI",
+      "createdAt": "2023년 11월 30일 목요일 오후 10:05",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
       "userId": "test713"
+    },
+    {
+      "id": "SXzvzP3HaYwT1hIvD3-Rx",
+      "nickname": "신규가입자",
+      "content": "헤헤ㅔㅎ 야ㅐㄴ얿ㅈㄷ",
+      "writedTo": "ALL",
+      "createdAt": "2023년 11월 30일 목요일 오후 10:37",
+      "avatar": null,
+      "userId": "test714"
     }
   ]
 }

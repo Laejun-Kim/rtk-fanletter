@@ -21,10 +21,10 @@ function Nav() {
 
   return (
     <StNav>
-      <StSpan onClick={homeBtnHndlr}>홈으로</StSpan>
+      <StSpan onClick={homeBtnHndlr}>HOME</StSpan>
       <div>
-        <StSpan onClick={myPageBtnHndlr}>마이페이지</StSpan>
-        <StSpan onClick={logoutBtnHndlr}>로그아웃</StSpan>
+        <StSpan onClick={myPageBtnHndlr}>MyPage</StSpan>
+        <StSpan onClick={logoutBtnHndlr}>Logout</StSpan>
       </div>
     </StNav>
   );
@@ -41,6 +41,16 @@ const StNav = styled.div`
   position: absolute;
   top: 0px;
   margin-bottom: 30px;
+  color: white;
+  font-weight: 600;
+  /* background-color: #27005d; */
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(60, 0, 135, 1) 50%,
+    rgba(171, 120, 221, 1) 100%
+  );
 `;
 
 const StSpan = styled.span`
