@@ -1,32 +1,67 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-// import uuid from "react-uuid";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
-// import { setFanLetters } from "redux/modules/fanletter";
 import { setFanLetters } from "redux/modules/fanLetterSlice";
 import ReusableButton from "./UI/ReusableButton";
 import ReusableModal from "./UI/ReusableModal";
-// import { activateModal } from "redux/modules/modal-control";
 import { activateModal } from "redux/modules/modalControlSlice";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function SubmitLetter() {
   //redux
   const fanLetters = useSelector((state) => state.fanLetter);
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const modalControl = useSelector((state) => state.modalControl);
-  const { nickname, avatar, userId } = useSelector((state) => state.auth);
+  const { nickname, avatar, userId, accessToken } = useSelector(
+    (state) => state.auth
+  );
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
   //local states
   const [letterContent, setLetterContent] = useState("");
   const [selmem, setSelmem] = useState();
 
   const postNewLetter = async (newLetter) => {
     try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_JWT_BASE_URL}/user`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log("토큰관련응답", response.data);
+
       await axios.post("http://localhost:5000/letters", newLetter);
-    } catch {}
+      dispatch(
+        activateModal({
+          title: "메시지 등록",
+          message: "메시지가 등록되었습니다! 감사합니다 ❤️",
+        })
+      );
+    } catch (error) {
+      console.error("에러발생 : ", error.response.data.message);
+      toast.error(`${error.response.data.message}`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        navigate("login");
+      }, 2000);
+    }
   };
 
   const memberSelectHndlr = (e) => {
@@ -34,13 +69,6 @@ function SubmitLetter() {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-
-    dispatch(
-      activateModal({
-        title: "메시지 등록",
-        message: "메시지가 등록되었습니다! 감사합니다 ❤️",
-      })
-    );
 
     //날짜 생성
     let formattedDate = new Intl.DateTimeFormat("ko-KR", {
@@ -58,7 +86,7 @@ function SubmitLetter() {
       userId: userId,
     };
     postNewLetter(newLetter);
-    dispatch(setFanLetters([newLetter, ...fanLetters]));
+    // dispatch(setFanLetters([newLetter, ...fanLetters])); //여기서 디스패치를 할게 아니고 다른 방법을 찾아야해
   };
 
   //form 입력값을 초기화

@@ -20,7 +20,7 @@ function LoginForm({ setIsSigningIn }) {
   const loginBtnHndlr = async () => {
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_JWT_BASE_URL}/login`,
+        `${process.env.REACT_APP_JWT_BASE_URL}/login?expiresIn=30s`,
         {
           id: id,
           password: pw,
