@@ -12,7 +12,7 @@ function Profile() {
   return (
     <StProfileDiv>
       <h1>내 프로필</h1>
-      <img src={avatar} alt="" />
+      <img src={avatar} alt="등록된 프로필 사진이 없어요" />
       <p>닉네임 : {nickname}</p>
       <ReusableButton onClick={editBtnHndlr}>수정하기</ReusableButton>
     </StProfileDiv>

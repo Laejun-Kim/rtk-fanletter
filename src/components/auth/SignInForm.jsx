@@ -1,7 +1,133 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { setUser } from "redux/modules/authSlice";
 
+function SignInForm({ setIsSigningIn }) {
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  const [nickName, setNickName] = useState("");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const backBtnHndlr = () => {
+    setIsSigningIn(false);
+  };
+
+  const signInBtnHndlr = async (e) => {
+    e.preventDefault();
+    console.log("연결완", id, pw, nickName);
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_JWT_BASE_URL}/register`,
+        {
+          id: id,
+          password: pw,
+          nickname: nickName,
+        }
+      );
+
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_JWT_BASE_URL}/login`,
+        {
+          id: id,
+          password: pw,
+        }
+      );
+      toast.success("회원가입 완료!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      dispatch(setUser(data));
+      navigate("/");
+
+      console.log("response", response);
+    } catch (error) {
+      console.error("에러발생 : ", error.response.data.message);
+      toast.error(`${error.response.data.message}`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+
+  return (
+    <InputContainer>
+      <Form>
+        <Title>회원가입</Title>
+        <IdContainer>
+          <label>ID : &nbsp;</label>
+          <Input
+            type="text"
+            value={id}
+            onChange={(e) => {
+              setId(e.target.value);
+            }}
+            name="text"
+            required
+            placeholder="아이디(4~10글자)"
+            maxLength={10}
+            minLength={4}
+            autoFocus
+          ></Input>
+        </IdContainer>
+        <PasswordContainer>
+          <label>Password : &nbsp;</label>
+          <Input
+            type="password"
+            value={pw}
+            onChange={(e) => {
+              setPw(e.target.value);
+            }}
+            name="password"
+            placeholder="비밀번호(4~15글자)"
+            maxLength={15}
+            minLength={4}
+            required
+          ></Input>
+        </PasswordContainer>
+        <NicknameContainer>
+          <label>닉네임 : &nbsp;</label>
+          <Input
+            type="text"
+            value={nickName}
+            onChange={(e) => {
+              setNickName(e.target.value);
+            }}
+            name="text"
+            placeholder="닉네임(1~10글자)"
+            maxLength={10}
+            minLength={1}
+            required
+          ></Input>
+        </NicknameContainer>
+        <ErrorTextContainer></ErrorTextContainer>
+        <ButtonContainer>
+          <StSigninBtn onClick={signInBtnHndlr}>회원가입</StSigninBtn>
+          <StBackBtn onClick={backBtnHndlr}>이전 페이지로</StBackBtn>
+        </ButtonContainer>
+      </Form>
+    </InputContainer>
+  );
+}
+
+//styled-components
 const InputContainer = styled.div`
   width: 440px;
   height: auto;
@@ -82,7 +208,7 @@ const ButtonContainer = styled.div`
   width: 100%;
 `;
 
-const LoginButton = styled.button`
+const StSigninBtn = styled.button`
   width: 100%;
   border: none;
   border-radius: 8px;
@@ -135,7 +261,7 @@ const LoginButton = styled.button`
   } */
 `;
 
-const SignInButton = styled.button`
+const StBackBtn = styled.button`
   width: 100%;
   border: none;
   border-radius: 8px;
@@ -187,64 +313,5 @@ const ErrorText = styled.p`
   color: red;
   margin-bottom: 0 10px;
 `;
-
-function SignInForm({ setIsSigningIn }) {
-  //   const navigate = useNavigate();
-  const backBtnHndlr = () => {
-    // navigate("login");
-    setIsSigningIn(false);
-  };
-
-  return (
-    <InputContainer>
-      <Form>
-        <Title>회원가입</Title>
-        <IdContainer>
-          <label>ID : &nbsp;</label>
-          <Input
-            type="text"
-            // value={credentials.id}
-            name="text"
-            required
-            placeholder="아이디(4~10글자)"
-            maxLength={10}
-            minLength={4}
-            autoFocus
-            onChange={() => {}}
-          ></Input>
-        </IdContainer>
-        <PasswordContainer>
-          <label>Password : &nbsp;</label>
-          <Input
-            type="password"
-            // value={credentials.password}
-            name="password"
-            placeholder="비밀번호(4~15글자)"
-            maxLength={15}
-            minLength={4}
-            required
-          ></Input>
-        </PasswordContainer>
-        <NicknameContainer>
-          <label>닉네임 : &nbsp;</label>
-          <Input
-            type="text"
-            // value={credentials.password}
-            name="text"
-            placeholder="닉네임(1~10글자)"
-            maxLength={10}
-            minLength={1}
-            required
-          ></Input>
-        </NicknameContainer>
-        <ErrorTextContainer></ErrorTextContainer>
-        <ButtonContainer>
-          <LoginButton>회원가입</LoginButton>
-          <SignInButton onClick={backBtnHndlr}>이전 페이지로</SignInButton>
-        </ButtonContainer>
-      </Form>
-    </InputContainer>
-  );
-}
 
 export default SignInForm;

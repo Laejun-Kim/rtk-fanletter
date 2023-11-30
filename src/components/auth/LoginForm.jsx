@@ -4,11 +4,11 @@ import styled from "styled-components";
 import axios from "axios";
 import { setUser } from "redux/modules/authSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function LoginForm({ setIsSigningIn }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // useSelector
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   // console.log(id);
@@ -27,10 +27,32 @@ function LoginForm({ setIsSigningIn }) {
         }
       );
 
-      console.log(data);
+      // console.log(data);
+      toast.success("로그인 성공!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       dispatch(setUser(data));
       navigate("/");
-    } catch {}
+    } catch (error) {
+      console.error("에러발생 : ", error.response.data.message);
+      toast.error(`${error.response.data.message}`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
 
   return (
@@ -40,12 +62,12 @@ function LoginForm({ setIsSigningIn }) {
         <IdContainer>
           <label>ID : &nbsp;</label>
           <Input
-            type="email"
+            type="text"
             value={id}
             onChange={(e) => {
               setId(e.target.value);
             }}
-            name="email"
+            name="text"
             required
             placeholder="아이디(4~10글자)"
             maxLength={10}
