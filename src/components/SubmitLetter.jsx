@@ -9,38 +9,6 @@ import ReusableModal from "./UI/ReusableModal";
 // import { activateModal } from "redux/modules/modal-control";
 import { activateModal } from "redux/modules/modalControlSlice";
 
-//styled-components
-const StForm = styled.form`
-  border: 3px solid #914bad;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-
-  padding: 10px;
-  gap: 10px;
-  color: white;
-  backdrop-filter: blur(8px);
-
-  button {
-    padding: 0.7rem;
-    color: white;
-    background-color: #734bad;
-    font-weight: 600;
-  }
-`;
-const StTextarea = styled.textarea`
-  width: 500px;
-  height: 3rem;
-  resize: none;
-`;
-const StDivForLetterContent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`;
-
 function SubmitLetter() {
   //redux
   const fanLetters = useSelector((state) => state.fanLetter);
@@ -149,5 +117,37 @@ function SubmitLetter() {
     </>
   );
 }
+
+//styled-components
+const StForm = styled.form`
+  border: 3px solid #914bad;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+
+  padding: 10px;
+  gap: 10px;
+  color: white;
+  backdrop-filter: blur(8px);
+
+  button {
+    padding: 0.7rem;
+    color: white;
+    background-color: #734bad;
+    font-weight: 600;
+  }
+`;
+const StTextarea = styled.textarea`
+  width: 500px;
+  height: 3rem;
+  resize: none;
+`;
+const StDivForLetterContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
 
 export default SubmitLetter;
