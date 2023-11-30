@@ -1,6 +1,86 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
+import axios from "axios";
+import { setUser } from "redux/modules/authSlice";
+import { useNavigate } from "react-router-dom";
 
+function LoginForm({ setIsSigningIn }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // useSelector
+  const [id, setId] = useState("");
+  const [pw, setPw] = useState("");
+  // console.log(id);
+  // console.log(pw);
+  const signInBtnHndlr = () => {
+    setIsSigningIn(true);
+  };
+
+  const loginBtnHndlr = async () => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_JWT_BASE_URL}/login`,
+        {
+          id: id,
+          password: pw,
+        }
+      );
+
+      console.log(data);
+      dispatch(setUser(data));
+      navigate("/");
+    } catch {}
+  };
+
+  return (
+    <InputContainer>
+      <Form>
+        <Title>로그인</Title>
+        <IdContainer>
+          <label>ID : &nbsp;</label>
+          <Input
+            type="email"
+            value={id}
+            onChange={(e) => {
+              setId(e.target.value);
+            }}
+            name="email"
+            required
+            placeholder="아이디(4~10글자)"
+            maxLength={10}
+            minLength={4}
+            autoFocus
+          ></Input>
+        </IdContainer>
+        <PasswordContainer>
+          <label>Password : &nbsp;</label>
+          <Input
+            type="password"
+            value={pw}
+            onChange={(e) => {
+              setPw(e.target.value);
+            }}
+            name="password"
+            placeholder="비밀번호(4~15글자)"
+            maxLength={15}
+            minLength={4}
+            required
+          ></Input>
+        </PasswordContainer>
+        <ErrorTextContainer></ErrorTextContainer>
+      </Form>
+      <ButtonContainer>
+        <>
+          <LoginButton onClick={loginBtnHndlr}>로그인</LoginButton>
+          <SignInButton onClick={signInBtnHndlr}>회원가입</SignInButton>
+        </>
+      </ButtonContainer>
+    </InputContainer>
+  );
+}
+
+//styled-components
 const InputContainer = styled.div`
   width: 440px;
   height: auto;
@@ -85,42 +165,6 @@ const LoginButton = styled.button`
   &:nth-child(1):hover {
     background-color: #4e53cf;
   }
-  /* &:nth-child(3) {
-    position: relative;
-    color: #333;
-    background: #e6e6e6;
-  }
-  &:nth-child(3):hover {
-    background-color: #cbcbcb;
-  }
-  &:nth-child(3)::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translate(-50%, -50%);
-    display: block;
-    width: 24px;
-    height: 24px;
-  }
-  &:nth-child(4) {
-    position: relative;
-    color: #fff;
-    background: #333;
-  }
-  &:nth-child(4):hover {
-    background-color: #000000;
-  }
-  &:nth-child(4)::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translate(-50%, -50%);
-    display: block;
-    width: 18px;
-    height: 17.473px;
-  } */
 `;
 
 const SignInButton = styled.button`
@@ -175,47 +219,5 @@ const ErrorText = styled.p`
   color: red;
   margin-bottom: 0 10px;
 `;
-
-function LoginForm({ setIsSigningIn }) {
-  const signInBtnHndlr = () => {
-    setIsSigningIn(true);
-  };
-  return (
-    <InputContainer>
-      <Form>
-        <Title>로그인</Title>
-        <IdContainer>
-          <label>ID : &nbsp;</label>
-          <Input
-            type="email"
-            // value={credentials.id}
-            name="email"
-            required
-            placeholder="아이디(4~10글자)"
-            autoFocus
-            onChange={() => {}}
-          ></Input>
-        </IdContainer>
-        <PasswordContainer>
-          <label>Password : &nbsp;</label>
-          <Input
-            type="password"
-            // value={credentials.password}
-            name="password"
-            placeholder="비밀번호(4~15글자)"
-            required
-          ></Input>
-        </PasswordContainer>
-        <ErrorTextContainer></ErrorTextContainer>
-      </Form>
-      <ButtonContainer>
-        <>
-          <LoginButton>로그인</LoginButton>
-          <SignInButton onClick={signInBtnHndlr}>회원가입</SignInButton>
-        </>
-      </ButtonContainer>
-    </InputContainer>
-  );
-}
 
 export default LoginForm;
