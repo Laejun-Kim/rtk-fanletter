@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { setUser } from "redux/modules/authSlice";
+import { setUser, logout } from "redux/modules/authSlice";
 
 function Nav() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function Nav() {
     navigate("profile");
   };
   const logoutBtnHndlr = () => {
-    dispatch(setUser(null));
+    dispatch(logout());
     navigate("login");
   };
 
