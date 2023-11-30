@@ -1,13 +1,20 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import ReusableButton from "components/UI/ReusableButton";
 
 function Profile() {
+  const editBtnHndlr = () => {
+    console.log("연결됐음!");
+  };
+
   const { avatar, nickname } = useSelector((state) => state.auth);
   return (
     <StProfileDiv>
+      <h1>내 프로필</h1>
       <img src={avatar} alt="" />
       <p>닉네임 : {nickname}</p>
+      <ReusableButton onClick={editBtnHndlr}>수정하기</ReusableButton>
     </StProfileDiv>
   );
 }

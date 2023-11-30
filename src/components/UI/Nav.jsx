@@ -1,9 +1,12 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { setUser } from "redux/modules/authSlice";
 
 function Nav() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const homeBtnHndlr = () => {
     navigate("/");
@@ -11,19 +14,17 @@ function Nav() {
   const myPageBtnHndlr = () => {
     navigate("profile");
   };
+  const logoutBtnHndlr = () => {
+    dispatch(setUser(null));
+    navigate("login");
+  };
 
   return (
     <StNav>
       <StSpan onClick={homeBtnHndlr}>홈으로</StSpan>
       <div>
         <StSpan onClick={myPageBtnHndlr}>마이페이지</StSpan>
-        <StSpan
-          onClick={() => {
-            navigate("login");
-          }}
-        >
-          로그아웃
-        </StSpan>
+        <StSpan onClick={logoutBtnHndlr}>로그아웃</StSpan>
       </div>
     </StNav>
   );
