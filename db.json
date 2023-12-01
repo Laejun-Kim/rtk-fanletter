@@ -53,42 +53,6 @@
       "createdAt": "2023년 12월 1일 금요일 오후 10:34:02",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
       "userId": "test713"
-    },
-    {
-      "id": "g8PaxsEv9dsmEC_f0mPZb",
-      "nickname": "ljkim",
-      "content": "오 이제 되네?",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 1일 금요일 오후 10:34:12",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
-      "userId": "test713"
-    },
-    {
-      "id": "8xOIT4FH381-B_lzVb7_I",
-      "nickname": "ljkim",
-      "content": "22",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 1일 금요일 오후 10:35:41",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
-      "userId": "test713"
-    },
-    {
-      "id": "gbefNj-BOvWRfQ2-WXFP7",
-      "nickname": "ljkim",
-      "content": "goada!",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 1일 금요일 오후 10:36:44",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
-      "userId": "test713"
-    },
-    {
-      "id": "ZMDi5rML4E26T_PbiUYfI",
-      "nickname": "ljkim",
-      "content": "xxx",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 1일 금요일 오후 10:37:38",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
-      "userId": "test713"
     }
   ]
 }

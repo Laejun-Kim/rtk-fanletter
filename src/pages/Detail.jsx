@@ -8,6 +8,7 @@ import ReusableModal from "components/UI/ReusableModal";
 import Wrapper from "components/UI/Wrapper";
 import { jsonInstance } from "../axios/api";
 import { toast } from "react-toastify";
+import tokenValid from "utils/tokenValid";
 
 function Detail() {
   //스크롤 올리기 - 최초 한번만 실행
@@ -17,7 +18,7 @@ function Detail() {
   //redux
   const fanLetters = useSelector((state) => state.fanLetter);
   const modalControl = useSelector((state) => state.modalControl);
-  const { userId } = useSelector((state) => state.auth);
+  const { userId, accessToken } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const params = useParams();
@@ -43,8 +44,26 @@ function Detail() {
   const isAuthor = matchingLetter.userId === userId;
   console.log("글쓴이 맞음?", isAuthor);
 
-  const editBtnHndlr = () => {
-    setIsEditing((prev) => !prev);
+  const editBtnHndlr = async () => {
+    const isValid = await tokenValid(accessToken);
+    if (isValid) {
+      setIsEditing((prev) => !prev);
+    } else {
+      toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    }
   };
   const editChangeHndlr = (e) => {
     setEditText(e.target.value);
@@ -72,6 +91,27 @@ function Detail() {
           btnFn: onEditConfirm,
         })
       );
+    }
+  };
+  const deleteBtnPreHndlr = async () => {
+    const isValid = await tokenValid(accessToken);
+    if (isValid) {
+      deleteBtnHndlr();
+    } else {
+      toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     }
   };
 
@@ -147,7 +187,7 @@ function Detail() {
                 수정 완료
               </ReusableButton>
             )}
-            <ReusableButton onClick={deleteBtnHndlr}>삭제</ReusableButton>
+            <ReusableButton onClick={deleteBtnPreHndlr}>삭제</ReusableButton>
           </StBtnDiv>
         </StLetterDetail>
       </StDetailContainer>

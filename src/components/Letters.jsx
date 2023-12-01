@@ -11,12 +11,13 @@ function Letters() {
   //redux
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const fanLetters = useSelector((state) => state.fanLetter);
+  const { accessToken } = useSelector((state) => state.auth);
   console.log(chosenMember);
   const authstate = useSelector((state) => state.auth);
   console.log("현재 로그인한 사람 정보", authstate);
 
   useEffect(() => {
-    dispatch(__setFanLetters());
+    dispatch(__setFanLetters(accessToken));
   }, []);
 
   //선택된 멤버에 따라 팬레터를 필터링 하는 로직
