@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
+import { jwtInstance } from "../../axios/api";
+
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { setUser } from "redux/modules/authSlice";
@@ -21,22 +22,16 @@ function SignInForm({ setIsSigningIn }) {
     e.preventDefault();
     console.log("연결완", id, pw, nickName);
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_JWT_BASE_URL}/register`,
-        {
-          id: id,
-          password: pw,
-          nickname: nickName,
-        }
-      );
+      const response = await jwtInstance.post(`/register`, {
+        id: id,
+        password: pw,
+        nickname: nickName,
+      });
 
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_JWT_BASE_URL}/login`,
-        {
-          id: id,
-          password: pw,
-        }
-      );
+      const { data } = await jwtInstance.post(`/login`, {
+        id: id,
+        password: pw,
+      });
       toast.success("회원가입 완료!", {
         position: "top-center",
         autoClose: 5000,

@@ -6,7 +6,7 @@ import { activateModal, resetModal } from "redux/modules/modalControlSlice";
 import ReusableButton from "components/UI/ReusableButton";
 import ReusableModal from "components/UI/ReusableModal";
 import Wrapper from "components/UI/Wrapper";
-import axios from "axios";
+import { jsonInstance } from "../axios/api";
 import { toast } from "react-toastify";
 
 function Detail() {
@@ -78,7 +78,7 @@ function Detail() {
   //모달에 전달할 함수들
   const onDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/letters/${matchingLetter.id}`);
+      await jsonInstance.delete(`/${matchingLetter.id}`);
     } catch (error) {
       console.error("에러발생 : ", error.response.data.message);
       toast.error(`${error.response.data.message}`, {
@@ -100,7 +100,7 @@ function Detail() {
   };
 
   const onEditConfirm = async () => {
-    await axios.patch(`http://localhost:5000/letters/${matchingLetter.id}`, {
+    await jsonInstance.patch(`/${matchingLetter.id}`, {
       ...matchingLetter,
       content: editRef.current.value,
     });

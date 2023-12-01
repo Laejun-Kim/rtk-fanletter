@@ -4,7 +4,7 @@ import EachLetter from "./EachLetter";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceSadTear } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
+import { jsonInstance } from "../axios/api";
 import { setFanLetters } from "redux/modules/fanLetterSlice";
 
 const StLetters = styled.div`
@@ -31,9 +31,7 @@ function Letters() {
 
   const fetchLetters = async () => {
     try {
-      const { data } = await axios.get(
-        "http://localhost:5000/letters?_sort=createdAt&_order=desc"
-      );
+      const { data } = await jsonInstance.get("?_sort=createdAt&_order=desc");
       console.log("json 서버에서 받아온거", data);
       dispatch(setFanLetters(data));
     } catch {}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import axios from "axios";
+import { jwtInstance } from "../../axios/api";
 import { setUser } from "redux/modules/authSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -19,13 +19,10 @@ function LoginForm({ setIsSigningIn }) {
 
   const loginBtnHndlr = async () => {
     try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_JWT_BASE_URL}/login?expiresIn=30s`,
-        {
-          id: id,
-          password: pw,
-        }
-      );
+      const { data } = await jwtInstance.post(`/login?expiresIn=10s`, {
+        id: id,
+        password: pw,
+      });
 
       // console.log(data);
       toast.success("로그인 성공!", {

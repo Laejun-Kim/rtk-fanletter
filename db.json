@@ -46,15 +46,6 @@
       "userId": "temp5"
     },
     {
-      "id": "SjLZtEfThhu6Y2GLwwhEL",
-      "nickname": "ljkim",
-      "content": "sdfgdfgxcv ssdfdqwqweqweqwe",
-      "writedTo": "AHRI",
-      "createdAt": "2023년 11월 30일 목요일 오후 10:05",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
-      "userId": "test713"
-    },
-    {
       "id": "SXzvzP3HaYwT1hIvD3-Rx",
       "nickname": "신규가입자",
       "content": "헤헤ㅔㅎ 야ㅐㄴ얿ㅈㄷ",
@@ -64,38 +55,65 @@
       "userId": "test714"
     },
     {
-      "id": "UwntW7yjfnhL3Ws8xYmaR",
+      "id": "5--zxbxLMMvdRI2STMb1-",
       "nickname": "ljkim",
-      "content": "asdf",
-      "writedTo": "ALL",
-      "createdAt": "2023년 11월 30일 목요일 오후 11:54",
+      "content": "수정 asdfdddd ",
+      "writedTo": "AKALI",
+      "createdAt": "2023년 12월 1일 금요일 오전 10:54",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
       "userId": "test713"
     },
     {
-      "id": "4zSz0oN4NGcktIFtJCt-J",
+      "id": "X49txQfgVNNIEcTMJNMoM",
       "nickname": "ljkim",
-      "content": "dfqweqwe",
-      "writedTo": "ALL",
-      "createdAt": "2023년 11월 30일 목요일 오후 11:54",
+      "content": "애허",
+      "writedTo": "EVELYN",
+      "createdAt": "2023년 12월 1일 금요일 오전 11:00",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
       "userId": "test713"
     },
     {
-      "id": "lpVMnK27GGqvXsUNDcqWE",
+      "id": "PilrbsZcezAitJ6MoMR0x",
       "nickname": "ljkim",
-      "content": "xx",
+      "content": ";;",
       "writedTo": "ALL",
-      "createdAt": "2023년 12월 1일 금요일 오전 12:00",
+      "createdAt": "2023년 12월 1일 금요일 오전 11:49",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
       "userId": "test713"
     },
     {
-      "id": "7qb7qJH1_Iku6kOC9YCMP",
+      "id": "g-tsynDp-FvpZ5H7Snyoq",
       "nickname": "ljkim",
-      "content": "만료되기 전!",
+      "content": "dsf",
       "writedTo": "ALL",
-      "createdAt": "2023년 12월 1일 금요일 오전 12:04",
+      "createdAt": "2023년 12월 1일 금요일 오전 11:53",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
+      "userId": "test713"
+    },
+    {
+      "id": "2U56k8uCtGYaU3xUABAxb",
+      "nickname": "ljkim",
+      "content": "만료전",
+      "writedTo": "AHRI",
+      "createdAt": "2023년 12월 1일 금요일 오전 11:54",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
+      "userId": "test713"
+    },
+    {
+      "id": "0Oifeq7K2pgfWvBILuC2L",
+      "nickname": "ljkim",
+      "content": "만료전 2",
+      "writedTo": "ALL",
+      "createdAt": "2023년 12월 1일 금요일 오전 11:57",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
+      "userId": "test713"
+    },
+    {
+      "id": "Q8OPVPZUKtWwnqXoTEUvF",
+      "nickname": "ljkim",
+      "content": "만료전 3",
+      "writedTo": "EVELYN",
+      "createdAt": "2023년 12월 1일 금요일 오전 11:58",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
       "userId": "test713"
     }

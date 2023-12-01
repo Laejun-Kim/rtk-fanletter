@@ -6,9 +6,10 @@ import { setFanLetters } from "redux/modules/fanLetterSlice";
 import ReusableButton from "./UI/ReusableButton";
 import ReusableModal from "./UI/ReusableModal";
 import { activateModal } from "redux/modules/modalControlSlice";
-import axios from "axios";
+import { jsonInstance, jwtInstance } from "../axios/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { logout } from "redux/modules/authSlice";
 
 function SubmitLetter() {
   //redux
@@ -28,24 +29,22 @@ function SubmitLetter() {
 
   const postNewLetter = async (newLetter) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_JWT_BASE_URL}/user`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await jwtInstance.get(`/user`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       console.log("토큰관련응답", response.data);
 
-      await axios.post("http://localhost:5000/letters", newLetter);
+      await jsonInstance.post("", newLetter);
       dispatch(
         activateModal({
           title: "메시지 등록",
           message: "메시지가 등록되었습니다! 감사합니다 ❤️",
         })
       );
+      dispatch(setFanLetters([newLetter, ...fanLetters]));
     } catch (error) {
       console.error("에러발생 : ", error.response.data.message);
       toast.error(`${error.response.data.message}`, {
@@ -60,6 +59,7 @@ function SubmitLetter() {
       });
       setTimeout(() => {
         navigate("login");
+        dispatch(logout());
       }, 2000);
     }
   };
