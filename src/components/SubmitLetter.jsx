@@ -44,7 +44,7 @@ function SubmitLetter() {
           message: "메시지가 등록되었습니다! 감사합니다 ❤️",
         })
       );
-      dispatch(setFanLetters([newLetter, ...fanLetters]));
+      // dispatch(setFanLetters([newLetter, ...fanLetters]));
     } catch (error) {
       console.error("에러발생 : ", error.response.data.message);
       toast.error(`${error.response.data.message}`, {
@@ -86,7 +86,6 @@ function SubmitLetter() {
       userId: userId,
     };
     postNewLetter(newLetter);
-    // dispatch(setFanLetters([newLetter, ...fanLetters])); //여기서 디스패치를 할게 아니고 다른 방법을 찾아야해
   };
 
   //form 입력값을 초기화

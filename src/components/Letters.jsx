@@ -4,21 +4,7 @@ import EachLetter from "./EachLetter";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceSadTear } from "@fortawesome/free-solid-svg-icons";
-import { jsonInstance } from "../axios/api";
-import { setFanLetters } from "redux/modules/fanLetterSlice";
-
-const StLetters = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  width: 80%;
-  margin-bottom: 50px;
-
-  > p {
-    margin: 20px;
-  }
-`;
+import { __setFanLetters } from "../redux/modules/fanLetterSlice";
 
 function Letters() {
   const dispatch = useDispatch();
@@ -29,16 +15,8 @@ function Letters() {
   const authstate = useSelector((state) => state.auth);
   console.log("현재 로그인한 사람 정보", authstate);
 
-  const fetchLetters = async () => {
-    try {
-      const { data } = await jsonInstance.get("?_sort=createdAt&_order=desc");
-      console.log("json 서버에서 받아온거", data);
-      dispatch(setFanLetters(data));
-    } catch {}
-  };
-
   useEffect(() => {
-    fetchLetters();
+    dispatch(__setFanLetters());
   }, []);
 
   //선택된 멤버에 따라 팬레터를 필터링 하는 로직
@@ -89,5 +67,19 @@ function Letters() {
     </StLetters>
   );
 }
+
+//styled-components
+const StLetters = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 80%;
+  margin-bottom: 50px;
+
+  > p {
+    margin: 20px;
+  }
+`;
 
 export default Letters;
