@@ -93,8 +93,7 @@ function Detail() {
       });
       return;
     }
-    // let temp = fanLetters.filter((letter) => letter.id !== matchingLetter.id);
-    // dispatch(setFanLetters(temp));
+
     dispatch(resetModal());
     navigate("/");
   };

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import SignInForm from "components/auth/SignInForm";
 import LoginForm from "components/auth/LoginForm";
-
 import { useDispatch } from "react-redux";
+import { logout } from "redux/modules/authSlice";
 
 //styled-components
 const LoginContainer = styled.div`
@@ -18,9 +17,12 @@ const LoginContainer = styled.div`
 `;
 
 const Login = () => {
-  const [isSigningIn, setIsSigningIn] = useState(false); // 로그인창or회원가입창 toggle
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [isSigningIn, setIsSigningIn] = useState(false); // 로그인창or회원가입창 toggle
+
+  useEffect(() => {
+    dispatch(logout());
+  }, []);
 
   return (
     <>

@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
-import { setFanLetters } from "redux/modules/fanLetterSlice";
+import { __setFanLetters } from "redux/modules/fanLetterSlice";
 import ReusableButton from "./UI/ReusableButton";
 import ReusableModal from "./UI/ReusableModal";
 import { activateModal } from "redux/modules/modalControlSlice";
 import { jsonInstance, jwtInstance } from "../axios/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { logout } from "redux/modules/authSlice";
 
 function SubmitLetter() {
   //redux
@@ -44,7 +43,7 @@ function SubmitLetter() {
           message: "메시지가 등록되었습니다! 감사합니다 ❤️",
         })
       );
-      // dispatch(setFanLetters([newLetter, ...fanLetters]));
+      dispatch(__setFanLetters());
     } catch (error) {
       console.error("에러발생 : ", error.response.data.message);
       toast.error(`${error.response.data.message}`, {
@@ -59,7 +58,6 @@ function SubmitLetter() {
       });
       setTimeout(() => {
         navigate("login");
-        dispatch(logout());
       }, 2000);
     }
   };
@@ -73,7 +71,7 @@ function SubmitLetter() {
     //날짜 생성
     let formattedDate = new Intl.DateTimeFormat("ko-KR", {
       dateStyle: "full",
-      timeStyle: "short",
+      timeStyle: "medium",
     }).format(new Date());
     //신규 팬레터 생성
     let newLetter = {
