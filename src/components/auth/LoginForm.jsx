@@ -19,7 +19,7 @@ function LoginForm({ setIsSigningIn }) {
 
   const loginBtnHndlr = async () => {
     try {
-      const { data } = await jwtInstance.post(`/login?expiresIn=10s`, {
+      const { data } = await jwtInstance.post(`/login?expiresIn=1h`, {
         id: id,
         password: pw,
       });
@@ -104,6 +104,8 @@ const InputContainer = styled.div`
   width: 440px;
   height: auto;
   padding: 40px 60px;
+  margin-top: 70px;
+
   display: flex;
   flex-direction: column;
   align-items: center;

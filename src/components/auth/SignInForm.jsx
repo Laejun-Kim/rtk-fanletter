@@ -127,6 +127,7 @@ const InputContainer = styled.div`
   width: 440px;
   height: auto;
   padding: 40px 60px;
+  margin-top: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;

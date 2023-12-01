@@ -53,6 +53,24 @@
       "createdAt": "2023년 12월 1일 금요일 오후 10:34:02",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
       "userId": "test713"
+    },
+    {
+      "id": "UjOsm1yFHkGcbEur-eWn0",
+      "nickname": "ljkim",
+      "content": "신규",
+      "writedTo": "ALL",
+      "createdAt": "2023년 12월 1일 금요일 오후 11:22:54",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
+      "userId": "test713"
+    },
+    {
+      "id": "0Y11nJ2F06qIZpq5dzMRS",
+      "nickname": "hydro",
+      "content": "dfsdfsdf",
+      "writedTo": "ALL",
+      "createdAt": "2023년 12월 1일 금요일 오후 11:59:10",
+      "avatar": null,
+      "userId": "test716"
     }
   ]
 }

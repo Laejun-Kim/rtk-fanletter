@@ -4,6 +4,7 @@ import SignInForm from "components/auth/SignInForm";
 import LoginForm from "components/auth/LoginForm";
 import { useDispatch } from "react-redux";
 import { logout } from "redux/modules/authSlice";
+import Wrapper from "components/UI/Wrapper";
 
 //styled-components
 const LoginContainer = styled.div`
@@ -11,9 +12,9 @@ const LoginContainer = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  width: 100vw;
+  /* width: 100vw; */
   /* height: 100vh; */
-  margin-top: 50px;
+  /* margin-top: 50px; */
 `;
 
 const Login = () => {
@@ -25,12 +26,12 @@ const Login = () => {
   }, []);
 
   return (
-    <>
+    <Wrapper>
       <LoginContainer>
         {isSigningIn && <SignInForm setIsSigningIn={setIsSigningIn} />}
         {!isSigningIn && <LoginForm setIsSigningIn={setIsSigningIn} />}
       </LoginContainer>
-    </>
+    </Wrapper>
   );
 };
 

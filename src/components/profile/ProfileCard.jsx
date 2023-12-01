@@ -13,7 +13,9 @@ function ProfileCard({ setIsEditing }) {
       <h1>내 프로필</h1>
       <img src={avatar} alt="등록된 프로필 사진이 없어요" />
       <p>닉네임 : {nickname}</p>
-      <ReusableButton onClick={editBtnHndlr}>수정하기</ReusableButton>
+      <StButtonContainer>
+        <ReusableButton onClick={editBtnHndlr}>수정하기</ReusableButton>
+      </StButtonContainer>
     </StProfileDiv>
   );
 }
@@ -21,7 +23,7 @@ function ProfileCard({ setIsEditing }) {
 //styled-components
 const StProfileDiv = styled.div`
   width: 440px;
-  height: auto;
+  height: 500px;
   padding: 40px 60px;
   display: flex;
   flex-direction: column;
@@ -30,6 +32,36 @@ const StProfileDiv = styled.div`
   background-color: #fff;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   margin-top: 50px;
+  position: relative;
+  img {
+    width: 200px;
+    height: 200px;
+  }
+`;
+const StButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px;
+  width: 80%;
+  position: absolute;
+  bottom: 20px;
+  button {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  button:first-of-type {
+    color: #fff;
+    background: #7579e7;
+  }
+  button:first-of-type:hover {
+    background-color: #4e53cf;
+  }
 `;
 
 export default ProfileCard;

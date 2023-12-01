@@ -17,7 +17,7 @@ export const __setFanLetters = createAsyncThunk(
         console.log("json 서버에서 받아온거", data);
         thunkAPI.dispatch(setFanLetters(data));
       } else {
-        toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
+        toast.error(`from slice 토큰이 만료되었습니다. 다시 로그인해주세요`, {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: false,

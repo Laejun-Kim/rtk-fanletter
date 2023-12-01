@@ -39,18 +39,21 @@ function SubmitLetter() {
             message: "메시지가 등록되었습니다! 감사합니다 ❤️",
           })
         );
-        dispatch(__setFanLetters());
+        dispatch(__setFanLetters(accessToken));
       } else {
-        toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
-          position: "top-center",
-          autoClose: 2000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.error(
+          `from submit.jsx토큰이 만료되었습니다. 다시 로그인해주세요`,
+          {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          }
+        );
 
         setTimeout(() => {
           navigate("login");
