@@ -6,10 +6,10 @@ import { __setFanLetters } from "redux/modules/fanLetterSlice";
 import ReusableButton from "./UI/ReusableButton";
 import ReusableModal from "./UI/ReusableModal";
 import { activateModal } from "redux/modules/modalControlSlice";
-import { jsonInstance, jwtInstance } from "../axios/api";
+import { jsonInstance } from "../axios/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import useTokenValidationHook from "hooks/useTokenValidationHook";
+import tokenValid from "utils/tokenValid";
 
 function SubmitLetter() {
   //redux
@@ -26,15 +26,12 @@ function SubmitLetter() {
   //local states
   const [letterContent, setLetterContent] = useState("");
   const [selmem, setSelmem] = useState();
-  const [temp, setTemp] = useState(0);
-  console.log(temp);
-
-  const [isValid] = useTokenValidationHook(accessToken, temp);
-  console.log(isValid);
 
   const postNewLetter = async (newLetter) => {
-    if (isValid) {
-      try {
+    try {
+      const isValid = await tokenValid(accessToken);
+      console.log(isValid);
+      if (isValid) {
         await jsonInstance.post("", newLetter);
         dispatch(
           activateModal({
@@ -43,9 +40,8 @@ function SubmitLetter() {
           })
         );
         dispatch(__setFanLetters());
-      } catch (error) {
-        console.error("에러발생 : ", error.response.data.message);
-        toast.error(`${error.response.data.message}`, {
+      } else {
+        toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
           position: "top-center",
           autoClose: 2000,
           hideProgressBar: false,
@@ -55,9 +51,14 @@ function SubmitLetter() {
           progress: undefined,
           theme: "light",
         });
+
+        setTimeout(() => {
+          navigate("login");
+        }, 2000);
       }
-    } else {
-      toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
+    } catch (error) {
+      console.error("에러발생 : ", error.response.data.message);
+      toast.error(`${error.response.data.message}`, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
@@ -67,10 +68,6 @@ function SubmitLetter() {
         progress: undefined,
         theme: "light",
       });
-
-      setTimeout(() => {
-        navigate("login");
-      }, 2000);
     }
   };
 
@@ -79,8 +76,7 @@ function SubmitLetter() {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    setTemp((prev) => (prev += 1));
-    //날짜 생성
+
     let formattedDate = new Intl.DateTimeFormat("ko-KR", {
       dateStyle: "full",
       timeStyle: "medium",
