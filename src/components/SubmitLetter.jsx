@@ -30,7 +30,7 @@ function SubmitLetter() {
   console.log(temp);
 
   const [isValid] = useTokenValidationHook(accessToken, temp);
-  // console.log(isValid);
+  console.log(isValid);
 
   const postNewLetter = async (newLetter) => {
     if (isValid) {
@@ -77,7 +77,7 @@ function SubmitLetter() {
   const memberSelectHndlr = (e) => {
     setSelmem(e.target.value);
   };
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     setTemp((prev) => (prev += 1));
     //날짜 생성
@@ -95,7 +95,7 @@ function SubmitLetter() {
       avatar: avatar,
       userId: userId,
     };
-    postNewLetter(newLetter);
+    await postNewLetter(newLetter);
   };
 
   //form 입력값을 초기화
