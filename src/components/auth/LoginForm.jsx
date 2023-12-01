@@ -19,7 +19,7 @@ function LoginForm({ setIsSigningIn }) {
 
   const loginBtnHndlr = async () => {
     try {
-      const { data } = await jwtInstance.post(`/login?expiresIn=1h`, {
+      const { data } = await jwtInstance.post(`/login?expiresIn=10s`, {
         id: id,
         password: pw,
       });

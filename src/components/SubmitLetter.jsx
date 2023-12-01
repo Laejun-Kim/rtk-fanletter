@@ -9,6 +9,7 @@ import { activateModal } from "redux/modules/modalControlSlice";
 import { jsonInstance, jwtInstance } from "../axios/api";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import useTokenValidationHook from "hooks/useTokenValidationHook";
 
 function SubmitLetter() {
   //redux
@@ -25,28 +26,38 @@ function SubmitLetter() {
   //local states
   const [letterContent, setLetterContent] = useState("");
   const [selmem, setSelmem] = useState();
+  const [temp, setTemp] = useState(0);
+  console.log(temp);
+
+  const [isValid] = useTokenValidationHook(accessToken, temp);
+  // console.log(isValid);
 
   const postNewLetter = async (newLetter) => {
-    try {
-      const response = await jwtInstance.get(`/user`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log("토큰관련응답", response.data);
-
-      await jsonInstance.post("", newLetter);
-      dispatch(
-        activateModal({
-          title: "메시지 등록",
-          message: "메시지가 등록되었습니다! 감사합니다 ❤️",
-        })
-      );
-      dispatch(__setFanLetters());
-    } catch (error) {
-      console.error("에러발생 : ", error.response.data.message);
-      toast.error(`${error.response.data.message}`, {
+    if (isValid) {
+      try {
+        await jsonInstance.post("", newLetter);
+        dispatch(
+          activateModal({
+            title: "메시지 등록",
+            message: "메시지가 등록되었습니다! 감사합니다 ❤️",
+          })
+        );
+        dispatch(__setFanLetters());
+      } catch (error) {
+        console.error("에러발생 : ", error.response.data.message);
+        toast.error(`${error.response.data.message}`, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+    } else {
+      toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
         position: "top-center",
         autoClose: 2000,
         hideProgressBar: false,
@@ -56,6 +67,7 @@ function SubmitLetter() {
         progress: undefined,
         theme: "light",
       });
+
       setTimeout(() => {
         navigate("login");
       }, 2000);
@@ -67,7 +79,7 @@ function SubmitLetter() {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-
+    setTemp((prev) => (prev += 1));
     //날짜 생성
     let formattedDate = new Intl.DateTimeFormat("ko-KR", {
       dateStyle: "full",
