@@ -13,10 +13,9 @@ function ProfileEdit({ setIsEditing }) {
   const [previewAvatar, SetPreviewAvatar] = useState(avatar);
   const dispatch = useDispatch();
 
-  console.log("임시아바타", tempAvatar, "임시 이름", tempNick);
-
   const editCompleteBtnHndlr = (e) => {
-    console.log("연결됨ㅇㅇ");
+    //여기다 토큰 만료 확인 로직을 넣자
+
     profilesubmitHndlr(e);
   };
   const cancelBtnHndlr = () => {
@@ -135,6 +134,7 @@ const StProfileEditDiv = styled.div`
 const StH1 = styled.h1`
   font-size: 30px;
   margin-bottom: 20px;
+  font-weight: 600;
 `;
 const StForm = styled.form`
   display: flex;

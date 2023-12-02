@@ -69,5 +69,6 @@ const StNick = styled.p`
 const StH1 = styled.h1`
   font-size: 30px;
   margin-bottom: 20px;
+  font-weight: 600;
 `;
 export default ProfileCard;
