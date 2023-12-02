@@ -10,9 +10,9 @@ function ProfileCard({ setIsEditing }) {
   };
   return (
     <StProfileDiv>
-      <h1>내 프로필</h1>
+      <StH1>내 프로필</StH1>
       <img src={avatar} alt="등록된 프로필 사진이 없어요" />
-      <p>닉네임 : {nickname}</p>
+      <StNick>{nickname}</StNick>
       <StButtonContainer>
         <ReusableButton onClick={editBtnHndlr}>수정하기</ReusableButton>
       </StButtonContainer>
@@ -63,5 +63,11 @@ const StButtonContainer = styled.div`
     background-color: #4e53cf;
   }
 `;
-
+const StNick = styled.p`
+  font-size: 30px;
+`;
+const StH1 = styled.h1`
+  font-size: 30px;
+  margin-bottom: 20px;
+`;
 export default ProfileCard;

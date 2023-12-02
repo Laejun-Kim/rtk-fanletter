@@ -1,31 +1,115 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ReusableButton from "components/UI/ReusableButton";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { jwtInstance } from "../../axios/api";
+import { toast } from "react-toastify";
+import { editUser } from "redux/modules/authSlice";
 
 function ProfileEdit({ setIsEditing }) {
-  const { avatar, nickname } = useSelector((state) => state.auth);
+  const { avatar, nickname, accessToken } = useSelector((state) => state.auth);
+  const [tempNick, setTempNick] = useState(nickname);
+  const [tempAvatar, setTempAvatar] = useState(avatar);
+  const [previewAvatar, SetPreviewAvatar] = useState(avatar);
+  const dispatch = useDispatch();
 
-  const editCompleteBtnHndlr = () => {
+  console.log("임시아바타", tempAvatar, "임시 이름", tempNick);
+
+  const editCompleteBtnHndlr = (e) => {
     console.log("연결됨ㅇㅇ");
+    profilesubmitHndlr(e);
   };
   const cancelBtnHndlr = () => {
     setIsEditing(false);
   };
 
+  const profilesubmitHndlr = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+      formData.append("nickname", tempNick);
+      formData.append("avatar", tempAvatar);
+
+      const response = await jwtInstance.patch("/profile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      console.log("서버 응답:", response.data);
+      toast.success(`${response.data.message}`, {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      const changedProfile = {};
+
+      if (response.data) {
+        if (response.data.hasOwnProperty("nickname")) {
+          changedProfile.nickname = response.data.nickname;
+        }
+
+        if (response.data.hasOwnProperty("avatar")) {
+          changedProfile.avatar = response.data.avatar;
+        }
+      }
+      dispatch(editUser(changedProfile));
+      setIsEditing(false);
+    } catch (error) {
+      console.error("서버 오류:", error);
+      toast.error(`${error.response.data.message}`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
+  const handleAvatarChange = (e) => {
+    setTempAvatar(e.target.files[0]);
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        SetPreviewAvatar(reader.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
+
+  const handleNickChange = (e) => {
+    setTempNick(e.target.value);
+  };
+
   return (
     <StProfileEditDiv>
-      <h1>프로필 수정</h1>
-      <form>
-        <img src={avatar} alt="등록된 프로필 사진이 없어요" />
-        <p>닉네임 : {nickname}</p>
-      </form>
-      <StButtonContainer>
-        <ReusableButton onClick={editCompleteBtnHndlr}>
-          수정 완료
-        </ReusableButton>
-        <ReusableButton onClick={cancelBtnHndlr}>취소</ReusableButton>
-      </StButtonContainer>
+      <StH1>프로필 수정</StH1>
+      <StForm onSubmit={profilesubmitHndlr}>
+        <img src={previewAvatar} alt="등록된 프로필 사진이 없어요" />
+        <input type="file" onChange={handleAvatarChange} />
+        <StInput type="text" value={tempNick} onChange={handleNickChange} />
+        <StButtonContainer>
+          <ReusableButton
+            onClick={(e) => {
+              editCompleteBtnHndlr(e);
+            }}
+          >
+            수정 완료
+          </ReusableButton>
+          <ReusableButton onClick={cancelBtnHndlr}>취소</ReusableButton>
+        </StButtonContainer>
+      </StForm>
     </StProfileEditDiv>
   );
 }
@@ -47,6 +131,19 @@ const StProfileEditDiv = styled.div`
     width: 200px;
     height: 200px;
   }
+`;
+const StH1 = styled.h1`
+  font-size: 30px;
+  margin-bottom: 20px;
+`;
+const StForm = styled.form`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+`;
+const StInput = styled.input`
+  font-size: 20px;
 `;
 const StButtonContainer = styled.div`
   display: flex;
