@@ -45,6 +45,7 @@ function Detail() {
   console.log("글쓴이 맞음?", isAuthor);
 
   const editBtnHndlr = async () => {
+    //accessToken 유효성 검사
     const isValid = await tokenValid(accessToken);
     if (isValid) {
       setIsEditing((prev) => !prev);
@@ -94,6 +95,7 @@ function Detail() {
     }
   };
   const deleteBtnPreHndlr = async () => {
+    //accessToken 유효성 검사
     const isValid = await tokenValid(accessToken);
     if (isValid) {
       deleteBtnHndlr();

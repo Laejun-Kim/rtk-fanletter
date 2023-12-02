@@ -4,20 +4,31 @@ import ReusableButton from "components/UI/ReusableButton";
 import { useDispatch, useSelector } from "react-redux";
 import { jwtInstance } from "../../axios/api";
 import { toast } from "react-toastify";
-import { editUser } from "redux/modules/authSlice";
+import { __editUser } from "redux/modules/authSlice";
+import tokenValid from "utils/tokenValid";
+import { useNavigate } from "react-router-dom";
 
 function ProfileEdit({ setIsEditing }) {
-  const { avatar, nickname, accessToken } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const { avatar, nickname, accessToken, userId } = useSelector(
+    (state) => state.auth
+  );
   const [tempNick, setTempNick] = useState(nickname);
   const [tempAvatar, setTempAvatar] = useState(avatar);
   const [previewAvatar, SetPreviewAvatar] = useState(avatar);
   const dispatch = useDispatch();
 
   const editCompleteBtnHndlr = (e) => {
-    //여기다 토큰 만료 확인 로직을 넣자
-
+    //accessToken 유효성 검사--이게 들어가면 알수없는 이유로 profilesubmitHndlr(e);가 두번 실행되네....
+    // const isValid = await tokenValid(accessToken);
+    // if (isValid) {
     profilesubmitHndlr(e);
+    // } else {
+    //   setTimeout(() => {
+    //     navigate("/login");
+    //   }, 2000);
   };
+  // };
   const cancelBtnHndlr = () => {
     setIsEditing(false);
   };
@@ -29,6 +40,7 @@ function ProfileEdit({ setIsEditing }) {
       formData.append("nickname", tempNick);
       formData.append("avatar", tempAvatar);
 
+      //jwt 서버쪽 업데이트
       const response = await jwtInstance.patch("/profile", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -58,7 +70,10 @@ function ProfileEdit({ setIsEditing }) {
           changedProfile.avatar = response.data.avatar;
         }
       }
-      dispatch(editUser(changedProfile));
+
+      //thunk 써서 리덕스 상태와 json-server쪽 업데이트를 동시에 처리함.
+      dispatch(__editUser({ changedProfile, userId }));
+
       setIsEditing(false);
     } catch (error) {
       console.error("서버 오류:", error);

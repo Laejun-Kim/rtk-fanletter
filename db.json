@@ -46,24 +46,6 @@
       "userId": "temp5"
     },
     {
-      "id": "EP9jcseOu8G851Ks-cbmt",
-      "nickname": "ljkim",
-      "content": "야! 왜 등록이 안돼??",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 1일 금요일 오후 10:34:02",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
-      "userId": "test713"
-    },
-    {
-      "id": "UjOsm1yFHkGcbEur-eWn0",
-      "nickname": "ljkim",
-      "content": "신규",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 1일 금요일 오후 11:22:54",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
-      "userId": "test713"
-    },
-    {
       "id": "0Y11nJ2F06qIZpq5dzMRS",
       "nickname": "hydro",
       "content": "dfsdfsdf",
@@ -73,57 +55,21 @@
       "userId": "test716"
     },
     {
-      "id": "IZ0kXpvisOd2BXhqdJAXM",
-      "nickname": "ljkim",
-      "content": "안됐는데??",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 2일 토요일 오후 3:08:22",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-11-30/62986c8d-0ea4-4916-bb0f-8e7538e84679.jpg",
-      "userId": "test713"
-    },
-    {
-      "id": "GrQ5sKqTN-E4SlpmVElZP",
-      "nickname": "푸리나2",
-      "content": "ㅇㄹㄹ",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 2일 토요일 오후 3:43:17",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/c52242c1-8d4a-4373-8d47-e08231baf944.jpg",
-      "userId": "test713"
-    },
-    {
-      "id": "IVxszyylMvXTmKbA7PWNj",
-      "nickname": "푸리나2",
-      "content": "ㅋㄹㅇ",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 2일 토요일 오후 3:43:57",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/b93c12be-54b6-4e54-80bf-b9277713a0d6.jpg",
-      "userId": "test713"
-    },
-    {
       "id": "XhhFaiGuUd7ryD3FFYwse",
-      "nickname": "콜레이",
+      "nickname": "감우",
       "content": "아악!!! 이걸 어떻게 한번에 수정하지?? ",
       "writedTo": "EVELYN",
       "createdAt": "2023년 12월 2일 토요일 오후 4:18:21",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/108edcbe-1f0f-4619-8ed5-d81d21d88b68.jpg",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/86add749-d786-44ae-919d-eaffa7abec6f.jpg",
       "userId": "test713"
     },
     {
-      "id": "oOLL9nF9BW_gAym56OUip",
-      "nickname": "콜레이",
-      "content": "메시지",
+      "id": "i3ZDWZs7RGE6ZsHhKEa4F",
+      "nickname": "감우",
+      "content": "dd",
       "writedTo": "ALL",
-      "createdAt": "2023년 12월 2일 토요일 오후 4:28:09",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/108edcbe-1f0f-4619-8ed5-d81d21d88b68.jpg",
-      "userId": "test713"
-    },
-    {
-      "id": "uMbonbgLKb2UkC0kHB-OT",
-      "nickname": "푸리나",
-      "content": "새글",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 2일 토요일 오후 4:28:36",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/86d4c023-a7b5-43d5-bb21-8bf131fd108a.jpg",
+      "createdAt": "2023년 12월 2일 토요일 오후 8:55:54",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-02/86add749-d786-44ae-919d-eaffa7abec6f.jpg",
       "userId": "test713"
     }
   ]

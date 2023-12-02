@@ -29,6 +29,7 @@ function SubmitLetter() {
 
   const postNewLetter = async (newLetter) => {
     try {
+      //accessToken 유효성 검사
       const isValid = await tokenValid(accessToken);
       console.log(isValid);
       if (isValid) {
@@ -41,19 +42,16 @@ function SubmitLetter() {
         );
         dispatch(__setFanLetters(accessToken));
       } else {
-        toast.error(
-          `from submit.jsx토큰이 만료되었습니다. 다시 로그인해주세요`,
-          {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          }
-        );
+        toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
 
         setTimeout(() => {
           navigate("login");

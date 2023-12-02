@@ -11,8 +11,8 @@ function Letters() {
   //redux
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const fanLetters = useSelector((state) => state.fanLetter);
+  console.log(fanLetters);
   const { accessToken } = useSelector((state) => state.auth);
-  console.log(chosenMember);
   const authstate = useSelector((state) => state.auth);
   console.log("현재 로그인한 사람 정보", authstate);
 

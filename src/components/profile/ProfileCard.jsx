@@ -65,6 +65,7 @@ const StButtonContainer = styled.div`
 `;
 const StNick = styled.p`
   font-size: 30px;
+  margin-top: 15px;
 `;
 const StH1 = styled.h1`
   font-size: 30px;
