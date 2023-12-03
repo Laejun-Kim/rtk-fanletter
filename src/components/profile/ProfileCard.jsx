@@ -2,11 +2,33 @@ import React from "react";
 import ReusableButton from "components/UI/ReusableButton";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import tokenValid from "utils/tokenValid";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ProfileCard({ setIsEditing }) {
-  const { avatar, nickname } = useSelector((state) => state.auth);
-  const editBtnHndlr = () => {
-    setIsEditing(true);
+  const navigate = useNavigate();
+  const { avatar, nickname, accessToken } = useSelector((state) => state.auth);
+  const editBtnHndlr = async () => {
+    //accessToken 유효성 검사
+    const isValid = await tokenValid(accessToken);
+    if (isValid) {
+      setIsEditing(true);
+    } else {
+      toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    }
   };
   return (
     <StProfileDiv>

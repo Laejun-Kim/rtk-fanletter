@@ -64,7 +64,7 @@ function SignInForm({ setIsSigningIn }) {
 
   return (
     <InputContainer>
-      <Form>
+      <StForm>
         <Title>회원가입</Title>
         <IdContainer>
           <label>ID : &nbsp;</label>
@@ -117,7 +117,7 @@ function SignInForm({ setIsSigningIn }) {
           <StSigninBtn onClick={signInBtnHndlr}>회원가입</StSigninBtn>
           <StBackBtn onClick={backBtnHndlr}>이전 페이지로</StBackBtn>
         </ButtonContainer>
-      </Form>
+      </StForm>
     </InputContainer>
   );
 }
@@ -142,7 +142,7 @@ const Title = styled.h2`
   margin-bottom: 30px;
 `;
 
-const Form = styled.form`
+const StForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -219,42 +219,6 @@ const StSigninBtn = styled.button`
   &:nth-child(1):hover {
     background-color: #4e53cf;
   }
-  /* &:nth-child(3) {
-    position: relative;
-    color: #333;
-    background: #e6e6e6;
-  }
-  &:nth-child(3):hover {
-    background-color: #cbcbcb;
-  }
-  &:nth-child(3)::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translate(-50%, -50%);
-    display: block;
-    width: 24px;
-    height: 24px;
-  }
-  &:nth-child(4) {
-    position: relative;
-    color: #fff;
-    background: #333;
-  }
-  &:nth-child(4):hover {
-    background-color: #000000;
-  }
-  &:nth-child(4)::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translate(-50%, -50%);
-    display: block;
-    width: 18px;
-    height: 17.473px;
-  } */
 `;
 
 const StBackBtn = styled.button`
@@ -265,49 +229,11 @@ const StBackBtn = styled.button`
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s;
-  /* &:nth-child(1) {
-    color: #fff;
-    background: #7579e7;
-  }
-  &:nth-child(1):hover {
-    background-color: #4e53cf;
-  } */
-`;
-
-const BR = styled.p`
-  position: relative;
-  color: #555;
-  font-size: 14px;
-  text-align: center;
-  margin: 10px 0;
-  &::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: calc(50% - 30px);
-    height: 1px;
-    background: #e8e8ea;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 0;
-    width: calc(50% - 30px);
-    height: 1px;
-    background: #e8e8ea;
-  }
 `;
 
 const ErrorTextContainer = styled.div`
   width: max-content;
   height: auto;
-`;
-
-const ErrorText = styled.p`
-  color: red;
-  margin-bottom: 0 10px;
 `;
 
 export default SignInForm;

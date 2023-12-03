@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { jwtInstance } from "../../axios/api";
 import { setUser } from "redux/modules/authSlice";
@@ -11,8 +11,6 @@ function LoginForm({ setIsSigningIn }) {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  // console.log(id);
-  // console.log(pw);
   const signInBtnHndlr = () => {
     setIsSigningIn(true);
   };
@@ -24,7 +22,6 @@ function LoginForm({ setIsSigningIn }) {
         password: pw,
       });
 
-      // console.log(data);
       toast.success("로그인 성공!", {
         position: "top-center",
         autoClose: 5000,
@@ -196,49 +193,11 @@ const SignInButton = styled.button`
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s;
-  /* &:nth-child(1) {
-    color: #fff;
-    background: #7579e7;
-  }
-  &:nth-child(1):hover {
-    background-color: #4e53cf;
-  } */
-`;
-
-const BR = styled.p`
-  position: relative;
-  color: #555;
-  font-size: 14px;
-  text-align: center;
-  margin: 10px 0;
-  &::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: calc(50% - 30px);
-    height: 1px;
-    background: #e8e8ea;
-  }
-  &::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    right: 0;
-    width: calc(50% - 30px);
-    height: 1px;
-    background: #e8e8ea;
-  }
 `;
 
 const ErrorTextContainer = styled.div`
   width: max-content;
   height: auto;
-`;
-
-const ErrorText = styled.p`
-  color: red;
-  margin-bottom: 0 10px;
 `;
 
 export default LoginForm;

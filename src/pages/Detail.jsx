@@ -25,7 +25,6 @@ function Detail() {
   const navigate = useNavigate();
   const matchingLetter = fanLetters.find((letter) => letter.id == params.id);
   const editRef = useRef("");
-  console.log("매칭레터", matchingLetter);
   // local states
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(matchingLetter.content);
@@ -40,9 +39,8 @@ function Detail() {
       })
     );
   };
-
+  //글쓴이인지 확인하기 위한 변수
   const isAuthor = matchingLetter.userId === userId;
-  console.log("글쓴이 맞음?", isAuthor);
 
   const editBtnHndlr = async () => {
     //accessToken 유효성 검사

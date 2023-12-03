@@ -12,14 +12,12 @@ const LoginContainer = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  /* width: 100vw; */
-  /* height: 100vh; */
-  /* margin-top: 50px; */
 `;
 
 const Login = () => {
   const dispatch = useDispatch();
-  const [isSigningIn, setIsSigningIn] = useState(false); // 로그인창or회원가입창 toggle
+  // 로그인창&회원가입창 toggle용 변수
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   useEffect(() => {
     dispatch(logout());
