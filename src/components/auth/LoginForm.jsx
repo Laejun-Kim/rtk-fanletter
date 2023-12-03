@@ -50,12 +50,12 @@ function LoginForm({ setIsSigningIn }) {
   };
 
   return (
-    <InputContainer>
-      <Form>
-        <Title>로그인</Title>
-        <IdContainer>
+    <StInputContainer>
+      <StForm>
+        <StTitle>로그인</StTitle>
+        <StIdContainer>
           <label>ID : &nbsp;</label>
-          <Input
+          <StInput
             type="text"
             value={id}
             onChange={(e) => {
@@ -67,11 +67,11 @@ function LoginForm({ setIsSigningIn }) {
             maxLength={10}
             minLength={4}
             autoFocus
-          ></Input>
-        </IdContainer>
-        <PasswordContainer>
+          ></StInput>
+        </StIdContainer>
+        <StPasswordContainer>
           <label>Password : &nbsp;</label>
-          <Input
+          <StInput
             type="password"
             value={pw}
             onChange={(e) => {
@@ -82,22 +82,21 @@ function LoginForm({ setIsSigningIn }) {
             maxLength={15}
             minLength={4}
             required
-          ></Input>
-        </PasswordContainer>
-        <ErrorTextContainer></ErrorTextContainer>
-      </Form>
-      <ButtonContainer>
+          ></StInput>
+        </StPasswordContainer>
+      </StForm>
+      <StButtonContainer>
         <>
-          <LoginButton onClick={loginBtnHndlr}>로그인</LoginButton>
-          <SignInButton onClick={signInBtnHndlr}>회원가입</SignInButton>
+          <StLoginButton onClick={loginBtnHndlr}>로그인</StLoginButton>
+          <StSignInButton onClick={signInBtnHndlr}>회원가입</StSignInButton>
         </>
-      </ButtonContainer>
-    </InputContainer>
+      </StButtonContainer>
+    </StInputContainer>
   );
 }
 
 //styled-components
-const InputContainer = styled.div`
+const StInputContainer = styled.div`
   width: 440px;
   height: auto;
   padding: 40px 60px;
@@ -111,13 +110,13 @@ const InputContainer = styled.div`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
 `;
 
-const Title = styled.h2`
+const StTitle = styled.h2`
   font-weight: bold;
   font-size: 20px;
   margin-bottom: 30px;
 `;
 
-const Form = styled.form`
+const StForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -126,7 +125,7 @@ const Form = styled.form`
   font-size: 16px;
 `;
 
-const IdContainer = styled.div`
+const StIdContainer = styled.div`
   font-weight: bold;
   display: flex;
   flex-direction: column;
@@ -139,7 +138,7 @@ const IdContainer = styled.div`
   }
 `;
 
-const Input = styled.input`
+const StInput = styled.input`
   padding: 5px;
   border-radius: 8px;
   border: 1px solid #c7c7c7;
@@ -148,7 +147,7 @@ const Input = styled.input`
   font-size: 16px;
 `;
 
-const PasswordContainer = styled.div`
+const StPasswordContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -160,7 +159,7 @@ const PasswordContainer = styled.div`
   }
 `;
 
-const ButtonContainer = styled.div`
+const StButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -168,7 +167,7 @@ const ButtonContainer = styled.div`
   width: 100%;
 `;
 
-const LoginButton = styled.button`
+const StLoginButton = styled.button`
   width: 100%;
   border: none;
   border-radius: 8px;
@@ -185,7 +184,7 @@ const LoginButton = styled.button`
   }
 `;
 
-const SignInButton = styled.button`
+const StSignInButton = styled.button`
   width: 100%;
   border: none;
   border-radius: 8px;
@@ -193,11 +192,6 @@ const SignInButton = styled.button`
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s;
-`;
-
-const ErrorTextContainer = styled.div`
-  width: max-content;
-  height: auto;
 `;
 
 export default LoginForm;
