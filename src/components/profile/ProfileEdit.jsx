@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import ReusableButton from "components/UI/ReusableButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import tokenValid from "utils/tokenValid";
 import { useNavigate } from "react-router-dom";
 
 function ProfileEdit({ setIsEditing }) {
+  const inputRef = useRef();
   const navigate = useNavigate();
   const { avatar, nickname, accessToken, userId } = useSelector(
     (state) => state.auth
@@ -105,13 +106,24 @@ function ProfileEdit({ setIsEditing }) {
   const handleNickChange = (e) => {
     setTempNick(e.target.value);
   };
+  const handleImageClick = () => {
+    inputRef.current.click();
+  };
 
   return (
     <StProfileEditDiv>
       <StH1>프로필 수정</StH1>
       <StForm onSubmit={profilesubmitHndlr}>
-        <img src={previewAvatar} alt="등록된 프로필 사진이 없어요" />
-        <input type="file" onChange={handleAvatarChange} />
+        <img
+          src={previewAvatar}
+          alt="등록된 프로필 사진이 없어요"
+          onClick={handleImageClick}
+        />
+        <StInputforImg
+          type="file"
+          onChange={handleAvatarChange}
+          ref={inputRef}
+        />
         <StInput type="text" value={tempNick} onChange={handleNickChange} />
         <StButtonContainer>
           <ReusableButton
@@ -159,6 +171,9 @@ const StForm = styled.form`
 `;
 const StInput = styled.input`
   font-size: 20px;
+`;
+const StInputforImg = styled.input`
+  display: none;
 `;
 const StButtonContainer = styled.div`
   display: flex;
