@@ -1,55 +1,76 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import uuid from "react-uuid";
+import { nanoid } from "nanoid";
 import { useDispatch, useSelector } from "react-redux";
-import { setFanLetters } from "redux/modules/fanletter";
+import { __setFanLetters } from "redux/modules/fanLetterSlice";
 import ReusableButton from "./UI/ReusableButton";
 import ReusableModal from "./UI/ReusableModal";
-import { activateModal } from "redux/modules/modal-control";
-
-//styled-components
-const StForm = styled.form`
-  border: 3px solid #914bad;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90%;
-
-  padding: 10px;
-  gap: 10px;
-  color: white;
-  backdrop-filter: blur(8px);
-
-  button {
-    padding: 0.7rem;
-    color: white;
-    background-color: #734bad;
-    font-weight: 600;
-  }
-`;
-const StTextarea = styled.textarea`
-  width: 500px;
-  height: 3rem;
-  resize: none;
-`;
-const StDivForLetterContent = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`;
+import { activateModal } from "redux/modules/modalControlSlice";
+import { jsonInstance } from "../axios/api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import tokenValid from "utils/tokenValid";
 
 function SubmitLetter() {
   //redux
   const fanLetters = useSelector((state) => state.fanLetter);
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const modalControl = useSelector((state) => state.modalControl);
+  const { nickname, avatar, userId, accessToken } = useSelector(
+    (state) => state.auth
+  );
+
   const dispatch = useDispatch();
 
+  const navigate = useNavigate();
   //local states
-  const [userName, setUserName] = useState("");
   const [letterContent, setLetterContent] = useState("");
   const [selmem, setSelmem] = useState();
+
+  const postNewLetter = async (newLetter) => {
+    try {
+      //accessToken 유효성 검사
+      const isValid = await tokenValid(accessToken);
+      console.log(isValid);
+      if (isValid) {
+        await jsonInstance.post("", newLetter);
+        dispatch(
+          activateModal({
+            title: "메시지 등록",
+            message: "메시지가 등록되었습니다! 감사합니다 ❤️",
+          })
+        );
+        dispatch(__setFanLetters(accessToken));
+      } else {
+        toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+
+        setTimeout(() => {
+          navigate("login");
+        }, 2000);
+      }
+    } catch (error) {
+      console.error("에러발생 : ", error.response.data.message);
+      toast.error(`${error.response.data.message}`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
+  };
 
   const memberSelectHndlr = (e) => {
     setSelmem(e.target.value);
@@ -57,34 +78,25 @@ function SubmitLetter() {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(
-      activateModal({
-        title: "메시지 등록",
-        message: "메시지가 등록되었습니다! 감사합니다 ❤️",
-      })
-    );
-
-    //날짜 생성
     let formattedDate = new Intl.DateTimeFormat("ko-KR", {
       dateStyle: "full",
-      timeStyle: "short",
+      timeStyle: "medium",
     }).format(new Date());
     //신규 팬레터 생성
     let newLetter = {
-      id: uuid(),
-      username: userName,
-      text: letterContent,
-      foward: selmem,
-      postedTime: formattedDate,
-      portrait:
-        "https://global.discourse-cdn.com/turtlehead/optimized/2X/c/c830d1dee245de3c851f0f88b6c57c83c69f3ace_2_250x250.png",
+      id: nanoid(),
+      nickname: nickname,
+      content: letterContent,
+      writedTo: selmem,
+      createdAt: formattedDate,
+      avatar: avatar,
+      userId: userId,
     };
-    dispatch(setFanLetters([...fanLetters, newLetter]));
+    postNewLetter(newLetter);
   };
 
   //form 입력값을 초기화
   useEffect(() => {
-    setUserName("");
     setLetterContent("");
   }, [chosenMember, fanLetters]);
 
@@ -104,18 +116,7 @@ function SubmitLetter() {
         />
       )}
       <StForm onSubmit={submitHandler}>
-        <div>
-          <label htmlFor="username">닉네임 : </label>
-          <input
-            type="text"
-            id="username"
-            placeholder="당신의 이름을 적어주세요"
-            autoComplete="off"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value.trimStart())}
-            required
-          />
-        </div>
+        <div>닉네임 : {nickname}</div>
         <StDivForLetterContent>
           <label htmlFor="letterContent">메시지 : </label>
           <StTextarea
@@ -148,5 +149,37 @@ function SubmitLetter() {
     </>
   );
 }
+
+//styled-components
+const StForm = styled.form`
+  border: 3px solid #914bad;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+
+  padding: 10px;
+  gap: 10px;
+  color: white;
+  backdrop-filter: blur(8px);
+
+  button {
+    padding: 0.7rem;
+    color: white;
+    background-color: #734bad;
+    font-weight: 600;
+  }
+`;
+const StTextarea = styled.textarea`
+  width: 500px;
+  height: 3rem;
+  resize: none;
+`;
+const StDivForLetterContent = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
 
 export default SubmitLetter;

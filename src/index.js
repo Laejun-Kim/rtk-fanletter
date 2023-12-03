@@ -3,8 +3,9 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { store, persistor } from "redux/config/consfigStore";
 import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "redux/config/config-store";
+// import store from "redux/config/config-store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

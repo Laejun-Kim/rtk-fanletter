@@ -10,7 +10,7 @@ const StBtn = styled.button`
   cursor: pointer;
   transition-duration: 0.2s;
   &:active {
-    scale: 0.9;
+    scale: 0.95;
     box-shadow: none;
   }
 `;

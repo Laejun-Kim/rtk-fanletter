@@ -2,11 +2,198 @@ import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { setFanLetters } from "redux/modules/fanletter";
-import { activateModal, resetModal } from "redux/modules/modal-control";
+import { activateModal, resetModal } from "redux/modules/modalControlSlice";
 import ReusableButton from "components/UI/ReusableButton";
 import ReusableModal from "components/UI/ReusableModal";
 import Wrapper from "components/UI/Wrapper";
+import { jsonInstance } from "../axios/api";
+import { toast } from "react-toastify";
+import tokenValid from "utils/tokenValid";
+
+function Detail() {
+  //스크롤 올리기 - 최초 한번만 실행
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
+  //redux
+  const fanLetters = useSelector((state) => state.fanLetter);
+  const modalControl = useSelector((state) => state.modalControl);
+  const { userId, accessToken } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  const params = useParams();
+  const navigate = useNavigate();
+  const matchingLetter = fanLetters.find((letter) => letter.id == params.id);
+  const editRef = useRef("");
+  // local states
+  const [isEditing, setIsEditing] = useState(false);
+  const [editText, setEditText] = useState(matchingLetter.content);
+
+  const deleteBtnHndlr = () => {
+    dispatch(
+      activateModal({
+        title: "삭제 확인",
+        message: "한번 삭제된 메시지는 복구할 수 없습니다. 삭제하시겠습니까?",
+        btnMsg: "삭제",
+        btnFn: onDelete,
+      })
+    );
+  };
+  //글쓴이인지 확인하기 위한 변수
+  const isAuthor = matchingLetter.userId === userId;
+
+  const editBtnHndlr = async () => {
+    //accessToken 유효성 검사
+    const isValid = await tokenValid(accessToken);
+    if (isValid) {
+      setIsEditing((prev) => !prev);
+    } else {
+      toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    }
+  };
+  const editChangeHndlr = (e) => {
+    setEditText(e.target.value);
+  };
+  const editCompleteBtnHndlr = () => {
+    let editTarget = fanLetters.filter(
+      (letter) => letter.id == matchingLetter.id
+    );
+    if (editTarget[0].content === editRef.current.value) {
+      dispatch(
+        activateModal({
+          title: "수정 오류",
+          message: `변경된 내용이 없는것 같습니다.
+          내용이 변경된 경우에 [수정완료]버튼을 눌러주세요`,
+        })
+      );
+
+      setIsEditing((prev) => !prev);
+    } else {
+      dispatch(
+        activateModal({
+          title: "수정 확인",
+          message: "이대로 수정하시겠습니까?",
+          btnMsg: "확인",
+          btnFn: onEditConfirm,
+        })
+      );
+    }
+  };
+  const deleteBtnPreHndlr = async () => {
+    //accessToken 유효성 검사
+    const isValid = await tokenValid(accessToken);
+    if (isValid) {
+      deleteBtnHndlr();
+    } else {
+      toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    }
+  };
+
+  //모달에 전달할 함수들
+  const onDelete = async () => {
+    try {
+      await jsonInstance.delete(`/${matchingLetter.id}`);
+    } catch (error) {
+      console.error("에러발생 : ", error.response.data.message);
+      toast.error(`${error.response.data.message}`, {
+        position: "top-center",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
+    dispatch(resetModal());
+    navigate("/");
+  };
+
+  const onEditConfirm = async () => {
+    await jsonInstance.patch(`/${matchingLetter.id}`, {
+      ...matchingLetter,
+      content: editRef.current.value,
+    });
+    dispatch(resetModal());
+    navigate("/");
+  };
+
+  return (
+    <Wrapper>
+      {modalControl && (
+        <ReusableModal
+          title={modalControl.title}
+          message={modalControl.message}
+          btnMsg={modalControl.btnMsg}
+          btnFn={modalControl.btnFn}
+        />
+      )}
+      <StDetailContainer>
+        <StLetterDetail>
+          <StSenderDiv>
+            <img src={matchingLetter.avatar} alt="" />
+            <div>
+              <p>{matchingLetter.nickname}</p>
+              <span>{matchingLetter.createdAt}</span>
+            </div>
+          </StSenderDiv>
+
+          <StReceiverP>{matchingLetter.writedTo} 님에게...</StReceiverP>
+          {!isEditing && (
+            <StTextAreaForContent disabled value={matchingLetter.content} />
+          )}
+          {isEditing && (
+            <StEditInput
+              value={editText}
+              onChange={editChangeHndlr}
+              ref={editRef}
+            />
+          )}
+          <StBtnDiv $shouldDisplay={isAuthor}>
+            {!isEditing && (
+              <ReusableButton onClick={editBtnHndlr}>수정</ReusableButton>
+            )}
+            {isEditing && (
+              <ReusableButton onClick={editCompleteBtnHndlr}>
+                수정 완료
+              </ReusableButton>
+            )}
+            <ReusableButton onClick={deleteBtnPreHndlr}>삭제</ReusableButton>
+          </StBtnDiv>
+        </StLetterDetail>
+      </StDetailContainer>
+    </Wrapper>
+  );
+}
 
 //styled components
 const StDetailContainer = styled.section`
@@ -60,7 +247,8 @@ const StSenderDiv = styled.div`
   }
 `;
 const StBtnDiv = styled.div`
-  display: flex;
+  display: ${(props) =>
+    props.$shouldDisplay ? "flex" : "none"}; //작성자가 아니면 안보이게
   justify-content: space-around;
   width: 100%;
   margin-top: 50px;
@@ -100,133 +288,5 @@ const StTextAreaForContent = styled.textarea`
   color: white;
   font-size: large;
 `;
-
-function Detail() {
-  //스크롤 올리기 - 최초 한번만 실행
-  useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
-  //redux
-  const fanLetters = useSelector((state) => state.fanLetter);
-  const modalControl = useSelector((state) => state.modalControl);
-  const dispatch = useDispatch();
-
-  const params = useParams();
-  const navigate = useNavigate();
-  const matchingLetter = fanLetters.find((letter) => letter.id == params.id);
-  const editRef = useRef("");
-
-  // local states
-  const [isEditing, setIsEditing] = useState(false);
-  const [editText, setEditText] = useState(matchingLetter.text);
-
-  const deleteBtnHndlr = () => {
-    dispatch(
-      activateModal({
-        title: "삭제 확인",
-        message: "한번 삭제된 메시지는 복구할 수 없습니다. 삭제하시겠습니까?",
-        btnMsg: "삭제",
-        btnFn: onDelete,
-      })
-    );
-  };
-
-  const editBtnHndlr = () => {
-    setIsEditing((prev) => !prev);
-  };
-  const editChangeHndlr = (e) => {
-    setEditText(e.target.value);
-  };
-  const editCompleteBtnHndlr = () => {
-    let editTarget = fanLetters.filter(
-      (letter) => letter.id == matchingLetter.id
-    );
-    if (editTarget[0].text === editRef.current.value) {
-      dispatch(
-        activateModal({
-          title: "수정 오류",
-          message: `변경된 내용이 없는것 같습니다.
-          내용이 변경된 경우에 [수정완료]버튼을 눌러주세요`,
-        })
-      );
-
-      setIsEditing((prev) => !prev);
-    } else {
-      dispatch(
-        activateModal({
-          title: "수정 확인",
-          message: "이대로 수정하시겠습니까?",
-          btnMsg: "확인",
-          btnFn: onEditConfirm,
-        })
-      );
-    }
-  };
-
-  //모달에 전달할 함수들
-  const onDelete = () => {
-    let temp = fanLetters.filter((letter) => letter.id !== matchingLetter.id);
-    dispatch(setFanLetters(temp));
-    dispatch(resetModal());
-    navigate("/");
-  };
-  const onEditConfirm = () => {
-    let editTarget = fanLetters.filter(
-      (letter) => letter.id == matchingLetter.id
-    );
-    let temp = fanLetters.filter((letter) => letter.id !== matchingLetter.id);
-    editTarget[0].text = editRef.current.value;
-    dispatch(setFanLetters([...temp, editTarget[0]]));
-    dispatch(resetModal());
-    setIsEditing((prev) => !prev);
-  };
-
-  return (
-    <Wrapper>
-      {modalControl && (
-        <ReusableModal
-          title={modalControl.title}
-          message={modalControl.message}
-          btnMsg={modalControl.btnMsg}
-          btnFn={modalControl.btnFn}
-        />
-      )}
-      <StDetailContainer>
-        <StLetterDetail>
-          <StSenderDiv>
-            <img src={matchingLetter.portrait} alt="" />
-            <div>
-              <p>{matchingLetter.username}</p>
-              <span>{matchingLetter.postedTime}</span>
-            </div>
-          </StSenderDiv>
-
-          <StReceiverP>{matchingLetter.foward} 님에게...</StReceiverP>
-          {!isEditing && (
-            <StTextAreaForContent disabled value={matchingLetter.text} />
-          )}
-          {isEditing && (
-            <StEditInput
-              value={editText}
-              onChange={editChangeHndlr}
-              ref={editRef}
-            />
-          )}
-          <StBtnDiv>
-            {!isEditing && (
-              <ReusableButton onClick={editBtnHndlr}>수정</ReusableButton>
-            )}
-            {isEditing && (
-              <ReusableButton onClick={editCompleteBtnHndlr}>
-                수정 완료
-              </ReusableButton>
-            )}
-            <ReusableButton onClick={deleteBtnHndlr}>삭제</ReusableButton>
-          </StBtnDiv>
-        </StLetterDetail>
-      </StDetailContainer>
-    </Wrapper>
-  );
-}
 
 export default Detail;

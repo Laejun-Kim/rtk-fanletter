@@ -1,27 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import EachLetter from "./EachLetter";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFaceSadTear } from "@fortawesome/free-solid-svg-icons";
-
-const StLetters = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  width: 80%;
-  margin-bottom: 50px;
-
-  > p {
-    margin: 20px;
-  }
-`;
+import { __setFanLetters } from "../redux/modules/fanLetterSlice";
 
 function Letters() {
+  const dispatch = useDispatch();
   //redux
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const fanLetters = useSelector((state) => state.fanLetter);
+  console.log(fanLetters);
+  const { accessToken } = useSelector((state) => state.auth);
+  const authstate = useSelector((state) => state.auth);
+  console.log("현재 로그인한 사람 정보", authstate);
+
+  useEffect(() => {
+    dispatch(__setFanLetters(accessToken));
+  }, []);
 
   //선택된 멤버에 따라 팬레터를 필터링 하는 로직
   let filteredLetter;
@@ -30,20 +27,27 @@ function Letters() {
       filteredLetter = fanLetters;
       break;
     case "AKALI":
-      filteredLetter = fanLetters.filter((letter) => letter.foward === "AKALI");
+      filteredLetter = fanLetters.filter(
+        (letter) => letter.writedTo === "AKALI"
+      );
       break;
     case "AHRI":
-      filteredLetter = fanLetters.filter((letter) => letter.foward === "AHRI");
+      filteredLetter = fanLetters.filter(
+        (letter) => letter.writedTo === "AHRI"
+      );
       break;
     case "EVELYN":
       filteredLetter = fanLetters.filter(
-        (letter) => letter.foward === "EVELYN"
+        (letter) => letter.writedTo === "EVELYN"
       );
       break;
     case "KAISA":
-      filteredLetter = fanLetters.filter((letter) => letter.foward === "KAISA");
+      filteredLetter = fanLetters.filter(
+        (letter) => letter.writedTo === "KAISA"
+      );
       break;
   }
+  console.log("필터링 된 letters", filteredLetter);
 
   return (
     <StLetters>
@@ -64,5 +68,19 @@ function Letters() {
     </StLetters>
   );
 }
+
+//styled-components
+const StLetters = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 80%;
+  margin-bottom: 50px;
+
+  > p {
+    margin: 20px;
+  }
+`;
 
 export default Letters;
