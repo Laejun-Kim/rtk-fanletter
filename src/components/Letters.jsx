@@ -63,9 +63,6 @@ function Letters() {
 
   return (
     <StLetters>
-      {/* {isLoading && (
-        
-      )} */}
       {filteredLetter.length === 0 && (
         <>
           <p>아직 등록된 팬레터가 없어요! 팬레터를 보내볼까요?</p>
