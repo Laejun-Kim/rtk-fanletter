@@ -12,13 +12,14 @@ function Letters() {
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const { fanLetters, isLoading } = useSelector((state) => state.fanLetter);
   const { accessToken } = useSelector((state) => state.auth);
+  console.log(fanLetters);
 
   useEffect(() => {
     dispatch(__setFanLetters(accessToken));
   }, []);
 
   //선택된 멤버에 따라 팬레터를 필터링 하는 로직
-  let filteredLetter;
+  let filteredLetter = [];
   switch (chosenMember) {
     case "ALL":
       filteredLetter = fanLetters;
