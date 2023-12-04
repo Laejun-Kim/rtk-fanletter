@@ -20,8 +20,8 @@ https://rtk-fanletter.vercel.app/
 
 - `JavaScript`
 - `React`
-- `styled-components`
-- `redux`
+- `json-server`
+- `redux`+`redux-toolkit`
 
 ## 주요 기능
 
