@@ -14,7 +14,6 @@ export const __setFanLetters = createAsyncThunk(
     try {
       if (isValid) {
         const { data } = await jsonInstance.get("?_sort=createdAt&_order=desc");
-        console.log("json 서버에서 받아온거", data);
         return thunkAPI.fulfillWithValue(data);
       } else {
         toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
