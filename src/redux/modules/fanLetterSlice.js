@@ -15,7 +15,8 @@ export const __setFanLetters = createAsyncThunk(
       if (isValid) {
         const { data } = await jsonInstance.get("?_sort=createdAt&_order=desc");
         console.log("json 서버에서 받아온거", data);
-        thunkAPI.dispatch(setFanLetters(data));
+        // thunkAPI.dispatch(setFanLetters(data));
+        return thunkAPI.fulfillWithValue(data);
       } else {
         toast.error(`토큰이 만료되었습니다. 다시 로그인해주세요`, {
           position: "top-center",
@@ -34,18 +35,36 @@ export const __setFanLetters = createAsyncThunk(
       }
     } catch (error) {
       console.log(error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-const initialState = [];
+const initialState = {
+  fanLetters: [],
+  isLoading: false,
+  error: null,
+};
 
 const fanLetterSlice = createSlice({
   name: "fanLetter",
   initialState,
   reducers: {
-    setFanLetters: (state, action) => {
-      return [...action.payload];
+    // setFanLetters: (state, action) => {
+    //   return [...action.payload];
+    // },
+  },
+  extraReducers: {
+    [__setFanLetters.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__setFanLetters.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.fanLetters = action.payload;
+    },
+    [__setFanLetters.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });

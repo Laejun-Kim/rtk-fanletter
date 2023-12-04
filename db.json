@@ -55,15 +55,6 @@
       "userId": "test716"
     },
     {
-      "id": "c-w0rA9rE2OkTD2x4XzOm",
-      "nickname": "각청",
-      "content": "어..?",
-      "writedTo": "ALL",
-      "createdAt": "2023년 12월 2일 토요일 오후 11:47:55",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-03/79896e65-b81a-4717-a16c-2b73dd3ce598.jpg",
-      "userId": "test713"
-    },
-    {
       "id": "9TgVVY_KAeK1BahjCkTfI",
       "nickname": "호두",
       "content": "흠",
@@ -74,20 +65,29 @@
     },
     {
       "id": "1AGxBxjzC4FrbjaGP01ek",
-      "nickname": "각청",
+      "nickname": "푸리나",
       "content": "아아악!@",
       "writedTo": "ALL",
       "createdAt": "2023년 12월 3일 일요일 오후 11:26:09",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-03/79896e65-b81a-4717-a16c-2b73dd3ce598.jpg",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-04/6ab44976-7a9d-4cab-ad2d-de62e0cf8cd4.jpg",
       "userId": "test713"
     },
     {
       "id": "-nqwU1Itla21MPdvljV8p",
-      "nickname": "각청",
+      "nickname": "푸리나",
       "content": "ㅇㄹㄴㅇㄹ",
       "writedTo": "AHRI",
       "createdAt": "2023년 12월 3일 일요일 오후 11:26:13",
-      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-03/79896e65-b81a-4717-a16c-2b73dd3ce598.jpg",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-04/6ab44976-7a9d-4cab-ad2d-de62e0cf8cd4.jpg",
+      "userId": "test713"
+    },
+    {
+      "id": "9EYSKgUUQme4cHnn2uksn",
+      "nickname": "푸리나",
+      "content": "신규글 추가! 도 제발 되라",
+      "writedTo": "ALL",
+      "createdAt": "2023년 12월 4일 월요일 오전 10:08:54",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/23-12-04/6ab44976-7a9d-4cab-ad2d-de62e0cf8cd4.jpg",
       "userId": "test713"
     }
   ]

@@ -16,7 +16,7 @@ function Detail() {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
   //redux
-  const fanLetters = useSelector((state) => state.fanLetter);
+  const { fanLetters } = useSelector((state) => state.fanLetter);
   const modalControl = useSelector((state) => state.modalControl);
   const { userId, accessToken } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
