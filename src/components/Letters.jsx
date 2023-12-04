@@ -3,14 +3,15 @@ import styled from "styled-components";
 import EachLetter from "./EachLetter";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFaceSadTear } from "@fortawesome/free-solid-svg-icons";
+import { faFaceSadTear, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { __setFanLetters } from "../redux/modules/fanLetterSlice";
 
 function Letters() {
   const dispatch = useDispatch();
   //redux
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
-  const fanLetters = useSelector((state) => state.fanLetter);
+  const { fanLetters, isLoading } = useSelector((state) => state.fanLetter);
+  console.log("이즈로딩?", isLoading);
   console.log(fanLetters);
   const { accessToken } = useSelector((state) => state.auth);
   const authstate = useSelector((state) => state.auth);
@@ -49,8 +50,22 @@ function Letters() {
   }
   console.log("필터링 된 letters", filteredLetter);
 
+  if (isLoading) {
+    return (
+      <FontAwesomeIcon
+        icon={faSpinner}
+        style={{ color: "#ffffff", marginTop: "20px" }}
+        spin
+        size="2xl"
+      />
+    );
+  }
+
   return (
     <StLetters>
+      {/* {isLoading && (
+        
+      )} */}
       {filteredLetter.length === 0 && (
         <>
           <p>아직 등록된 팬레터가 없어요! 팬레터를 보내볼까요?</p>
