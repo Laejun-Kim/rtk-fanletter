@@ -22,7 +22,7 @@ function Letters() {
   let filteredLetter = [];
   switch (chosenMember) {
     case "ALL":
-      filteredLetter = fanLetters;
+      filteredLetter = fanLetters || [];
       break;
     case "AKALI":
       filteredLetter = fanLetters.filter(
