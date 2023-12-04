@@ -11,11 +11,7 @@ function Letters() {
   //redux
   const chosenMember = useSelector((state) => state.chosenMember.chosenMember);
   const { fanLetters, isLoading } = useSelector((state) => state.fanLetter);
-  console.log("이즈로딩?", isLoading);
-  console.log(fanLetters);
   const { accessToken } = useSelector((state) => state.auth);
-  const authstate = useSelector((state) => state.auth);
-  console.log("현재 로그인한 사람 정보", authstate);
 
   useEffect(() => {
     dispatch(__setFanLetters(accessToken));

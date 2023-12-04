@@ -20,7 +20,6 @@ function SignInForm({ setIsSigningIn }) {
 
   const signInBtnHndlr = async (e) => {
     e.preventDefault();
-    console.log("연결완", id, pw, nickName);
     try {
       const response = await jwtInstance.post(`/register`, {
         id: id,

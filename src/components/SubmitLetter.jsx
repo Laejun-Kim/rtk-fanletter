@@ -31,7 +31,6 @@ function SubmitLetter() {
     try {
       //accessToken 유효성 검사
       const isValid = await tokenValid(accessToken);
-      console.log(isValid);
       if (isValid) {
         await jsonInstance.post("", newLetter);
         dispatch(

@@ -7,10 +7,8 @@ export const __editUser = createAsyncThunk(
     try {
       //수정된 사용자가 작성한 글들의 id를 수집
       const usersLetters = await jsonInstance.get(`?userId=${payload.userId}`);
-      console.log("수정된 사용자의 글들", usersLetters.data);
       const idArr = [];
       usersLetters.data.forEach((letter) => idArr.push(letter.id));
-      console.log(idArr, payload.changedProfile);
 
       //수집한 id를 기반으로 json-server쪽에 patch 요청
       idArr.forEach(

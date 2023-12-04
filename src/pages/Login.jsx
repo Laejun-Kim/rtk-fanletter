@@ -6,14 +6,6 @@ import { useDispatch } from "react-redux";
 import { logout } from "redux/modules/authSlice";
 import Wrapper from "components/UI/Wrapper";
 
-//styled-components
-const LoginContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-`;
-
 const Login = () => {
   const dispatch = useDispatch();
   // 로그인창&회원가입창 toggle용 변수
@@ -32,5 +24,13 @@ const Login = () => {
     </Wrapper>
   );
 };
+
+//styled-components
+const LoginContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`;
 
 export default Login;

@@ -4,6 +4,17 @@ import styled from "styled-components";
 import Letters from "components/Letters";
 import Wrapper from "components/UI/Wrapper";
 
+function Home() {
+  return (
+    <Wrapper>
+      <StHomeContainer>
+        <SubmitLetter />
+        <Letters />
+      </StHomeContainer>
+    </Wrapper>
+  );
+}
+//styled-components
 const StHomeContainer = styled.section`
   display: flex;
   flex-direction: column;
@@ -16,16 +27,5 @@ const StHomeContainer = styled.section`
   min-width: 700px;
   margin: auto;
 `;
-
-function Home() {
-  return (
-    <Wrapper>
-      <StHomeContainer>
-        <SubmitLetter />
-        <Letters />
-      </StHomeContainer>
-    </Wrapper>
-  );
-}
 
 export default Home;

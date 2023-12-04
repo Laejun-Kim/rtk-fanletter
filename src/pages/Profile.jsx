@@ -22,9 +22,6 @@ const StProfileContainer = styled.div`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  /* width: 100vw; */
-  /* height: 100vh; */
-  /* margin-top: 50px; */
 `;
 
 export default Profile;

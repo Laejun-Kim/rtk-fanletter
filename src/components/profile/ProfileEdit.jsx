@@ -20,16 +20,8 @@ function ProfileEdit({ setIsEditing }) {
   const dispatch = useDispatch();
 
   const editCompleteBtnHndlr = (e) => {
-    //accessToken 유효성 검사--이게 들어가면 알수없는 이유로 profilesubmitHndlr(e);가 두번 실행되네....
-    // const isValid = await tokenValid(accessToken);
-    // if (isValid) {
     profilesubmitHndlr(e);
-    // } else {
-    //   setTimeout(() => {
-    //     navigate("/login");
-    //   }, 2000);
   };
-  // };
   const cancelBtnHndlr = () => {
     setIsEditing(false);
   };
